@@ -1,0 +1,84 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+}
+
+html {
+    width: 100vw;
+}
+
+.header {
+    background-color: #fff;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    padding: 5px;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.header-icon {
+    height: 2.25rem;
+}
+
+.header-text {
+    padding: 0px 0.25rem;
+    font-size: 1.25rem;
+    font-family: 'Pacifico', sans-serif;
+    background: -webkit-linear-gradient(#0bb1d4, #9f2fff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.workspace {
+    margin-bottom: 3em ;
+    padding: 0 1em 1em 1em;
+}
+
+.nav {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    /* position: -webkit-sticky; */
+    bottom: 0;
+    background-color: #fff;
+    padding: 5px;
+    height: 3em;
+    justify-content: center;
+    align-items: center;
+}   
+
+button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-home, .btn-add-task, .btn-menu {
+    width: 30vw;
+    height: 2.75em;
+    background: -webkit-linear-gradient(#9f2fff, #0bb1d4);
+    mask-size: 2em;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    border: 10px  ;
+}
+
+.btn-home {
+    mask-image: url(../Assets/home.svg);
+    -webkit-mask-image: url(../Assets/home.svg);    
+}
+
+.btn-add-task {
+    mask-image: url(../Assets/mono-svn-add.svg);
+    -webkit-mask-image: url(../Assets/mono-svn-add.svg);    
+}
+
+.btn-menu {
+    mask-image: url(../Assets/options.svg);
+    -webkit-mask-image: url(../Assets/options.svg);    
+}
