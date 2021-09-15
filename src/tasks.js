@@ -8,6 +8,19 @@ class Task {
         this.due = due
     }
 
+    editTask() {
+
+    }
+
+    deleteTask() {
+
+    }
+
+    setStatus() {
+        this.status = !this.status
+
+    }
+
 }
 
 export default function addTask() {
