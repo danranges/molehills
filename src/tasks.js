@@ -2,33 +2,36 @@ let taskList = []
 
 
 class Task {
-    constructor(name, desc, project, status, due) {
+    constructor(name, desc, project, status) {
         this.name = name
         this.desc = desc
         this.project = project
         this.status = status
         // this.due = due
     }
-
-    editTask() {
-
-    }
-
-    deleteTask() {
-
-    }
-
-    setStatus() {
-        this.status = !this.status
-
-    }
-
 }
+
 
 export default function addTask() {
-    const workspace = document.getElementById('workspace')
-    workspace.innerHTML = 'test'
-
-    taskList.push(new Task('test1', 'test task', 'test proj', false))
-    console.log(taskList)
+    addEditTaskCard()
+    
 }
+
+function renderWorkspace(project = "*") {
+
+}
+
+
+function addEditTaskCard(name = 'Task',
+                        desc = 'Description',
+                        project = 'Project',
+                        status = false) {
+                                
+    const card = document.createElement('div')
+    const cardForm = document.createElement('form')
+
+
+    card.appendChild(cardForm)
+
+}
+
