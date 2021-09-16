@@ -1,3 +1,5 @@
+let taskList = []
+
 
 class Task {
     constructor(name, desc, project, status, due) {
@@ -5,7 +7,7 @@ class Task {
         this.desc = desc
         this.project = project
         this.status = status
-        this.due = due
+        // this.due = due
     }
 
     editTask() {
@@ -26,4 +28,7 @@ class Task {
 export default function addTask() {
     const workspace = document.getElementById('workspace')
     workspace.innerHTML = 'test'
+
+    taskList.push(new Task('test1', 'test task', 'test proj', false))
+    console.log(taskList)
 }
