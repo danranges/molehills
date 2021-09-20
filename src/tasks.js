@@ -22,6 +22,8 @@ function addEditTaskCard(
   project = 'Project',
   status = false
 ) {
+  const workspace = document.getElementById('workspace');
+
   const overlay = document.createElement('div');
   overlay.classList.add('new-task-overlay');
 
@@ -60,6 +62,7 @@ function addEditTaskCard(
   formSubmit.setAttribute('type', 'submit');
   formSubmit.setAttribute('value', 'Submit');
 
+  workspace.appendChild(overlay);
   overlay.appendChild(card);
   card.appendChild(cardForm);
   cardForm.appendChild(taskName);
