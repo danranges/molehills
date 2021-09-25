@@ -11,16 +11,22 @@ class Task {
 }
 
 export default function addTask() {
+  clearWorkspace();
   addEditTaskCard();
 }
 
 function renderWorkspace(project = '*') {}
 
+function clearWorkspace() {
+  workspace.innerHTML = '';
+}
+
 function addEditTaskCard(
   name = 'Task',
   desc = 'Description',
   project = 'Project',
-  status = false
+  status = true,
+  addEdit = 'Add Task'
 ) {
   const workspace = document.getElementById('workspace');
 
@@ -55,12 +61,14 @@ function addEditTaskCard(
   taskStatus.id = 'task-status-checkbox';
 
   const taskStatusLabel = document.createElement('label');
+  taskStatusLabel.classList.add('task-status-label');
   taskStatusLabel.htmlFor = 'task-status-checkbox';
+  taskStatusLabel.innerHTML = 'Completed?';
   taskStatusLabel.appendChild(taskStatus);
 
   const formSubmit = document.createElement('input');
   formSubmit.setAttribute('type', 'submit');
-  formSubmit.setAttribute('value', 'Submit');
+  formSubmit.setAttribute('value', addEdit);
 
   workspace.appendChild(overlay);
   overlay.appendChild(card);
