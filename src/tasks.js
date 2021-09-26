@@ -44,10 +44,11 @@ function addEditTaskCard(
   taskName.setAttribute('name', 'TaskName');
   taskName.setAttribute('placeholder', name);
 
-  const taskDesc = document.createElement('input');
+  const taskDesc = document.createElement('textarea');
   taskDesc.setAttribute('type', 'text');
   taskDesc.setAttribute('name', 'TaskDescription');
   taskDesc.setAttribute('placeholder', desc);
+  taskDesc.setAttribute('rows', 5);
 
   const taskProj = document.createElement('input');
   taskProj.setAttribute('type', 'text');
@@ -74,8 +75,10 @@ function addEditTaskCard(
   overlay.appendChild(card);
   card.appendChild(cardForm);
   cardForm.appendChild(taskName);
-  cardForm.appendChild(taskDesc);
   cardForm.appendChild(taskProj);
+  cardForm.appendChild(taskDesc);
   cardForm.appendChild(taskStatusLabel);
   cardForm.appendChild(formSubmit);
+
+  overlay.addEventListener('click', clearWorkspace);
 }
