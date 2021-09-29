@@ -3,8 +3,8 @@ let taskList = [];
 class Task {
   constructor(name, desc, project, status) {
     this.name = name;
-    this.desc = desc;
     this.project = project;
+    this.desc = desc;
     this.status = status;
     // this.due = due
   }
@@ -13,6 +13,24 @@ class Task {
 export default function addTask() {
   clearWorkspace();
   addEditTaskCard();
+}
+
+function appendNewTask(e) {
+  e.preventDefault();
+
+  // const form = document.getElementById('new-task-form');
+  const form = e.target;
+  taskList.push(
+    new Task(
+      form.elements[0].value,
+      form.elements[1].value,
+      form.elements[2].value,
+      form.elements[3].value
+    )
+  );
+
+  clearWorkspace();
+  renderWorkspace();
 }
 
 function renderWorkspace(project = '*') {}
@@ -37,6 +55,7 @@ function addEditTaskCard(
   card.classList.add('new-task-card');
 
   const cardForm = document.createElement('form');
+  cardForm.id = 'new-task-form';
   cardForm.classList.add('new-task-form');
 
   const taskName = document.createElement('input');
@@ -81,4 +100,5 @@ function addEditTaskCard(
   cardForm.appendChild(formSubmit);
 
   overlay.addEventListener('click', clearWorkspace);
+  cardForm.addEventListener('submit', appendNewTask);
 }
