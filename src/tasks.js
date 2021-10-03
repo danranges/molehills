@@ -26,10 +26,8 @@ function restoreLocal() {
 }
 
 function appendNewTask(e) {
-  e.preventDefault();
-
-  // const form = document.getElementById('new-task-form');
-  const form = e.target;
+  const form = document.getElementById('new-task-form');
+  // const form = e.target;
   taskList.push(
     new Task(
       form.elements[0].value,
@@ -39,6 +37,7 @@ function appendNewTask(e) {
     ),
   );
 
+  // e.preventDefault();
   clearWorkspace();
   renderWorkspace();
 }

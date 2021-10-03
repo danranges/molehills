@@ -57,13 +57,15 @@ export default class UI {
   }
 
   static addEditTaskCard(
+    mouseEvent = '',
     name = 'Task',
     desc = 'Description',
     project = 'Project',
-    status = true,
+    status = false,
     addEdit = 'Add Task',
   ) {
     const workspace = document.getElementById('workspace');
+    workspace.innerHTML = '';
 
     const overlay = document.createElement('div');
     overlay.classList.add('new-task-overlay');
@@ -78,6 +80,7 @@ export default class UI {
     const taskName = document.createElement('input');
     taskName.setAttribute('type', 'text');
     taskName.setAttribute('name', 'TaskName');
+    console.log(name);
     taskName.setAttribute('placeholder', name);
 
     const taskDesc = document.createElement('textarea');
@@ -94,7 +97,7 @@ export default class UI {
     const taskStatus = document.createElement('input');
     taskStatus.setAttribute('type', 'checkbox');
     taskStatus.setAttribute('name', 'TaskStatus');
-    taskStatus.setAttribute('value', status);
+    taskStatus.checked = status;
     taskStatus.id = 'task-status-checkbox';
 
     const taskStatusLabel = document.createElement('label');
