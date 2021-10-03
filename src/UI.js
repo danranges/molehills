@@ -38,7 +38,7 @@ export default class UI {
 
       const btnAddTask = document.createElement('button');
       btnAddTask.classList.add('btn-add-task');
-      btnAddTask.addEventListener('click', UI.addEditTaskCard);
+      btnAddTask.addEventListener('click', () => UI.addEditTaskCard());
 
       const btnMenu = document.createElement('button');
       btnMenu.classList.add('btn-menu');
@@ -57,7 +57,6 @@ export default class UI {
   }
 
   static addEditTaskCard(
-    mouseEvent = '',
     name = 'Task',
     desc = 'Description',
     project = 'Project',
@@ -80,7 +79,6 @@ export default class UI {
     const taskName = document.createElement('input');
     taskName.setAttribute('type', 'text');
     taskName.setAttribute('name', 'TaskName');
-    console.log(name);
     taskName.setAttribute('placeholder', name);
 
     const taskDesc = document.createElement('textarea');

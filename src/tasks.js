@@ -25,7 +25,7 @@ function restoreLocal() {
   }
 }
 
-function appendNewTask(e) {
+function appendNewTask() {
   const form = document.getElementById('new-task-form');
   // const form = e.target;
   taskList.push(
