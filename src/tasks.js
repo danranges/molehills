@@ -1,4 +1,6 @@
-let taskList = [];
+import UI from './UI';
+
+export let taskList = [];
 
 export default class Task {
   constructor(name, desc, project, status) {
@@ -8,44 +10,33 @@ export default class Task {
     this.status = status;
     // this.due = due
   }
-}
 
-function addTask() {
-  clearWorkspace();
-  addEditTaskCard();
-}
-
-function saveLocal() {
-  localStorage.setItem('taskList', JSON.stringify(taskList));
-}
-
-function restoreLocal() {
-  if (localStorage.getItem('taskList')) {
-    taskList = JSON.parse(localStorage.getItem('taskList'));
+  static saveLocalTasks() {
+    localStorage.setItem('taskList', JSON.stringify(taskList));
   }
-}
 
-function appendNewTask() {
-  const form = document.getElementById('new-task-form');
-  // const form = e.target;
-  taskList.push(
-    new Task(
-      form.elements[0].value,
-      form.elements[1].value,
-      form.elements[2].value,
-      form.elements[3].value,
-    ),
-  );
+  static restoreLocalTasks() {
+    if (localStorage.getItem('taskList')) {
+      taskList = JSON.parse(localStorage.getItem('taskList'));
+    }
+  }
 
-  // e.preventDefault();
-  clearWorkspace();
-  renderWorkspace();
-}
+  static appendNewTask(e) {
+    // const form = document.getElementById('new-task-form');
+    const form = e.target;
+    taskList.push(
+      new Task(
+        form.elements[0].value,
+        form.elements[1].value,
+        form.elements[2].value,
+        form.elements[3].value,
+      ),
+    );
 
-function renderWorkspace(project = '*') {
-  console.log(taskList);
-}
-
-function clearWorkspace() {
-  workspace.innerHTML = '';
+    e.preventDefault();
+    Task.saveLocalTasks();
+    UI.clearWorkspace();
+    UI.renderWorkspace();
+    console.table(taskList);
+  }
 }

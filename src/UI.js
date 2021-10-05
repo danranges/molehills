@@ -1,4 +1,5 @@
 import Logo from '../Assets/mole.svg';
+import Task from './tasks';
 
 export default class UI {
   static render() {
@@ -54,6 +55,12 @@ export default class UI {
     document.body.appendChild(createHeader());
     document.body.appendChild(createWorkspace());
     document.body.appendChild(createNav());
+  }
+
+  static renderWorkspace(project = '*') {}
+
+  static clearWorkspace() {
+    workspace.innerHTML = '';
   }
 
   static addEditTaskCard(
@@ -117,6 +124,6 @@ export default class UI {
     cardForm.appendChild(taskStatusLabel);
     cardForm.appendChild(formSubmit);
 
-    // cardForm.addEventListener('submit', appendNewTask);
+    cardForm.addEventListener('submit', Task.appendNewTask);
   }
 }
