@@ -22,6 +22,7 @@
     "css-loader": "^6.2.0",
     "style-loader": "^3.2.1",
     "webpack": "^5.52.1",
+    "webpack-cascade-optimizer-plugin": "^1.0.5",
     "webpack-cli": "^4.8.0"
   }
 }

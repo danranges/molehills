@@ -1,6 +1,7 @@
 import UI from './UI';
+import Project from './project';
 
-export let taskList = [];
+let taskList = [];
 
 export default class Task {
   constructor(name, desc, project, status) {
@@ -8,7 +9,6 @@ export default class Task {
     this.project = project;
     this.desc = desc;
     this.status = status;
-    // this.due = due
   }
 
   static saveLocalTasks() {
@@ -22,7 +22,6 @@ export default class Task {
   }
 
   static appendNewTask(e) {
-    // const form = document.getElementById('new-task-form');
     const form = e.target;
     taskList.push(
       new Task(
@@ -35,8 +34,9 @@ export default class Task {
 
     e.preventDefault();
     Task.saveLocalTasks();
+    Project.updateProjectsFromTaskList();
     UI.clearWorkspace();
     UI.renderWorkspace();
-    console.table(taskList);
+    // console.table(taskList);
   }
 }

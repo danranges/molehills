@@ -1,5 +1,5 @@
 import Logo from '../Assets/mole.svg';
-import Task from './tasks';
+import Task from './task';
 
 export default class UI {
   static render() {
