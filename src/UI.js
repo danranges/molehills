@@ -35,7 +35,7 @@ export default class UI {
 
       const btnHome = document.createElement('button');
       btnHome.classList.add('btn-home');
-      //   btnHome.addEventListener('click', renderHome);
+      btnHome.addEventListener('click', UI.renderHome);
 
       const btnAddTask = document.createElement('button');
       btnAddTask.classList.add('btn-add-task');
@@ -43,7 +43,7 @@ export default class UI {
 
       const btnMenu = document.createElement('button');
       btnMenu.classList.add('btn-menu');
-      //   btnMenu.addEventListener('click', renderProjects);
+      btnMenu.addEventListener('click', UI.renderProjects);
 
       nav.appendChild(btnHome);
       nav.appendChild(btnAddTask);
@@ -58,6 +58,14 @@ export default class UI {
   }
 
   static renderWorkspace(project = '*') {}
+
+  static renderHome() {
+    workspace.innerHTML = 'HOME';
+  }
+
+  static renderProjects() {
+    workspace.innerHTML = 'PROJECTS';
+  }
 
   static clearWorkspace() {
     workspace.innerHTML = '';

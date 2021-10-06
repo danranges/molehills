@@ -1,13 +1,12 @@
 import UI from './UI';
-import Project from './project';
 
 let taskList = [];
 
 export default class Task {
   constructor(name, desc, project, status) {
     this.name = name;
-    this.project = project;
     this.desc = desc;
+    this.project = project;
     this.status = status;
   }
 
@@ -22,11 +21,7 @@ export default class Task {
       ),
     );
 
-    e.preventDefault();
-    Task.saveLocalTasks();
-    Project.updateProjectsFromTaskList();
     UI.clearWorkspace();
     UI.renderWorkspace();
-    // console.table(taskList);
   }
 }
