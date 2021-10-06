@@ -11,16 +11,6 @@ export default class Task {
     this.status = status;
   }
 
-  static saveLocalTasks() {
-    localStorage.setItem('taskList', JSON.stringify(taskList));
-  }
-
-  static restoreLocalTasks() {
-    if (localStorage.getItem('taskList')) {
-      taskList = JSON.parse(localStorage.getItem('taskList'));
-    }
-  }
-
   static appendNewTask(e) {
     const form = e.target;
     taskList.push(
