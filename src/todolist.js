@@ -1,28 +1,20 @@
-import Project from './project'
-import Task from './task'
+import Project from './project';
+import Task from './task';
 
-default export class TodoList {
-    constructor(projects) {
-        this.projects = []
-    }
+export default class TodoList {
+  constructor() {
+    this.projects = [];
+  }
 
-    get projectList() {
-        return this.projects
-    }
+  getProjects() {
+    return this.projects;
+  }
 
-    set projectList() {
+  setProjects(projects) {
+    this.projects = projects;
+  }
 
-    }
+  addProject(project) {}
 
-    addProject(project) {
-
-    }
-
-    deleteProject(project) {
-        
-    }
-
-
-
-
+  deleteProject(project) {}
 }
