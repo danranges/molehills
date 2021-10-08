@@ -132,6 +132,6 @@ export default class UI {
     cardForm.appendChild(taskStatusLabel);
     cardForm.appendChild(formSubmit);
 
-    cardForm.addEventListener('submit', Task.appendNewTask);
+    // cardForm.addEventListener('submit', Task.appendNewTask);
   }
 }
