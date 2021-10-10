@@ -39,7 +39,7 @@ export default class UI {
 
       const btnAddTask = document.createElement('button');
       btnAddTask.classList.add('btn-add-task');
-      btnAddTask.addEventListener('click', () => UI.addEditTaskCard());
+      btnAddTask.addEventListener('click', () => UI.initAddTypeButtons());
 
       const btnMenu = document.createElement('button');
       btnMenu.classList.add('btn-menu');
@@ -69,6 +69,38 @@ export default class UI {
 
   static clearWorkspace() {
     workspace.innerHTML = '';
+  }
+
+  static initAddTypeButtons() {
+    if (!document.getElementById('underlay')) {
+      const workspace = document.getElementById('workspace');
+
+      const underlay = document.createElement('div');
+      underlay.classList.add('underlay');
+      underlay.id = 'underlay';
+
+      const buttonWrapper = document.createElement('div');
+      buttonWrapper.classList.add('button-wrapper');
+      buttonWrapper.id = 'button-wrapper';
+
+      const btnAddType = document.createElement('button');
+      btnAddType.classList.add('btn-add-type');
+      btnAddType.innerHTML = 'Project';
+
+      workspace.appendChild(underlay);
+      workspace.appendChild(buttonWrapper);
+      buttonWrapper.appendChild(btnAddType);
+
+      underlay.addEventListener('click', () => UI.removeAddTypeButtons());
+    }
+  }
+
+  static removeAddTypeButtons() {
+    const underlay = document.getElementById('underlay');
+    const buttonWrapper = document.getElementById('button-wrapper');
+
+    underlay.remove();
+    buttonWrapper.remove();
   }
 
   static addEditTaskCard(
