@@ -18,6 +18,8 @@ export default class UI {
       header.appendChild(hdrLogo);
       header.appendChild(hdrTxt);
 
+      header.addEventListener('click', () => UI.renderHome());
+
       return header;
     }
 
@@ -55,6 +57,8 @@ export default class UI {
     document.body.appendChild(createHeader());
     document.body.appendChild(createWorkspace());
     document.body.appendChild(createNav());
+
+    UI.renderHome();
   }
 
   static renderWorkspace(project = '*') {}
@@ -83,15 +87,31 @@ export default class UI {
       buttonWrapper.classList.add('button-wrapper');
       buttonWrapper.id = 'button-wrapper';
 
-      const btnAddType = document.createElement('button');
-      btnAddType.classList.add('btn-add-type');
-      btnAddType.innerHTML = 'Project';
+      const addTypePrompt = document.createElement('h3');
+      addTypePrompt.classList.add('add-type-prompt-text');
+      addTypePrompt.innerHTML = 'What would you like to add?';
+
+      const btnAddTypeProject = document.createElement('button');
+      btnAddTypeProject.classList.add('btn-add-type');
+      btnAddTypeProject.innerHTML = 'Project';
+
+      const btnAddTypeTask = document.createElement('button');
+      btnAddTypeTask.classList.add('btn-add-type');
+      btnAddTypeTask.innerHTML = 'Task';
+
+      const btnDismiss = document.createElement('button');
+      btnDismiss.classList.add('btn-dismiss');
+      btnDismiss.innerHTML = 'close';
 
       workspace.appendChild(underlay);
       workspace.appendChild(buttonWrapper);
-      buttonWrapper.appendChild(btnAddType);
+      buttonWrapper.appendChild(addTypePrompt);
+      buttonWrapper.appendChild(btnAddTypeProject);
+      buttonWrapper.appendChild(btnAddTypeTask);
+      buttonWrapper.appendChild(btnDismiss);
 
       underlay.addEventListener('click', () => UI.removeAddTypeButtons());
+      btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     }
   }
 

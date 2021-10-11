@@ -35,6 +35,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
+  cursor: pointer;
 }
 
 .header-icon {
@@ -69,6 +70,10 @@ body {
 }
 
 .button-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -77,6 +82,38 @@ body {
   width: 80%;
   max-width: 400px;
   height: 50%;
+}
+
+h3 {
+  margin: 2rem 2rem;
+  align-items: center;
+}
+
+.btn-add-type {
+  margin: 1rem 2rem;
+  height: 4rem;
+}
+
+.btn-dismiss {
+  height: 2rem;
+  max-resolution: 1rem 2rem;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(#0bb1d4, #9f2fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  mask-size: 1em;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-origin: content-box;
+  -webkit-mask-size: 1em;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-origin: content-box;
+}
+
+.btn-dismiss:active {
+  font-size: 1.125rem;
 }
 
 .nav {
