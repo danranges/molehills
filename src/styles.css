@@ -8,6 +8,7 @@ html,
 body {
   display: flex;
   flex-direction: column;
+  font-family: 'Roboto', sans-serif;
   /* align-content: center; */
   align-items: center;
   margin: 0px;
@@ -54,7 +55,7 @@ body {
 
 .workspace {
   position: relative;
-  height: calc(100vh - 9em);
+  height: calc(100vh - 9.75em);
   width: 100%;
   padding: 0 1em;
   overflow: scroll;
@@ -84,32 +85,28 @@ body {
   height: 50%;
 }
 
-h3 {
+h4 {
   margin: 2rem 2rem;
+  text-align: center;
   align-items: center;
+  color: rgb(85, 85, 85);
 }
 
 .btn-add-type {
+  border-radius: 1000px;
   margin: 1rem 2rem;
-  height: 4rem;
+  height: 5rem;
+  border: solid 2.5px;
 }
 
 .btn-dismiss {
   height: 2rem;
-  max-resolution: 1rem 2rem;
+  margin: 1rem 2rem;
   color: transparent;
   -webkit-text-fill-color: transparent;
   background: -webkit-linear-gradient(#0bb1d4, #9f2fff);
   background-clip: text;
   -webkit-background-clip: text;
-  mask-size: 1em;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-origin: content-box;
-  -webkit-mask-size: 1em;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-origin: content-box;
 }
 
 .btn-dismiss:active {
@@ -124,6 +121,7 @@ h3 {
   width: 100%;
   bottom: 0;
   background-color: #fff;
+  margin-top: 0.5em;
   padding: 0.5em;
   height: 3em;
   justify-content: center;
@@ -136,7 +134,7 @@ button {
   align-items: center;
   border: none;
   border-radius: 0.5em;
-  margin: 2rem;
+  padding: 2rem;
 }
 
 button:active {

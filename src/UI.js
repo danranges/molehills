@@ -87,7 +87,7 @@ export default class UI {
       buttonWrapper.classList.add('button-wrapper');
       buttonWrapper.id = 'button-wrapper';
 
-      const addTypePrompt = document.createElement('h3');
+      const addTypePrompt = document.createElement('h4');
       addTypePrompt.classList.add('add-type-prompt-text');
       addTypePrompt.innerHTML = 'What would you like to add?';
 
