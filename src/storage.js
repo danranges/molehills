@@ -8,4 +8,6 @@ export class Storage {
   static setTodoList(todoList) {
     localStorage.setItem('todoList', JSON.stringify(todoList));
   }
+
+  static addProject(projectName) {}
 }

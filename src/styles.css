@@ -100,9 +100,11 @@ h4 {
   border: solid 2.5px;
 }
 
-.btn-dismiss {
+.btn-dismiss-submit {
+  border: none;
   height: 2rem;
   margin: 1rem 2rem;
+  font-size: 0.75rem;
   color: transparent;
   -webkit-text-fill-color: transparent;
   background: -webkit-linear-gradient(#0bb1d4, #9f2fff);

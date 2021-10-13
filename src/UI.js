@@ -61,8 +61,6 @@ export default class UI {
     UI.renderHome();
   }
 
-  static renderWorkspace(project = '*') {}
-
   static renderHome() {
     workspace.innerHTML = 'HOME';
   }
@@ -103,8 +101,8 @@ export default class UI {
     btnAddTypeTask.innerHTML = 'Task';
 
     const btnDismiss = document.createElement('button');
-    btnDismiss.classList.add('btn-dismiss');
-    btnDismiss.innerHTML = 'close';
+    btnDismiss.classList.add('btn-dismiss-submit');
+    btnDismiss.innerHTML = 'cancel';
 
     workspace.appendChild(underlay);
     workspace.appendChild(buttonWrapper);
@@ -129,7 +127,35 @@ export default class UI {
   static addProjectCard() {
     const buttonWrapper = document.getElementById('button-wrapper');
     buttonWrapper.innerHTML = '';
+
+    const cardForm = document.createElement('form');
+    cardForm.id = 'new-project-form';
+    cardForm.classList.add('new-project-form');
+
+    const projectName = document.createElement('input');
+    projectName.setAttribute('type', 'text');
+    projectName.setAttribute('name', 'ProjectName');
+    projectName.setAttribute('placeholder', 'Project Name');
+
+    const btnDismiss = document.createElement('button');
+    btnDismiss.classList.add('btn-dismiss-submit');
+    btnDismiss.innerHTML = 'cancel';
+
+    const formSubmit = document.createElement('input');
+    formSubmit.classList.add('btn-dismiss-submit');
+    formSubmit.setAttribute('type', 'submit');
+    formSubmit.setAttribute('value', 'create');
+
+    buttonWrapper.appendChild(cardForm);
+    cardForm.appendChild(projectName);
+    cardForm.appendChild(btnDismiss);
+    cardForm.appendChild(formSubmit);
+
+    btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
+    cardForm.addEventListener('submit', () => UI.addNewProject());
   }
+
+  static addNewProject() {}
 
   static addEditTaskCard(
     name = 'Task',
