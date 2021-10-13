@@ -76,51 +76,59 @@ export default class UI {
   }
 
   static initAddTypeButtons() {
-    if (!document.getElementById('underlay')) {
-      const workspace = document.getElementById('workspace');
-
-      const underlay = document.createElement('div');
-      underlay.classList.add('underlay');
-      underlay.id = 'underlay';
-
-      const buttonWrapper = document.createElement('div');
-      buttonWrapper.classList.add('button-wrapper');
-      buttonWrapper.id = 'button-wrapper';
-
-      const addTypePrompt = document.createElement('h4');
-      addTypePrompt.classList.add('add-type-prompt-text');
-      addTypePrompt.innerHTML = 'What would you like to add?';
-
-      const btnAddTypeProject = document.createElement('button');
-      btnAddTypeProject.classList.add('btn-add-type');
-      btnAddTypeProject.innerHTML = 'Project';
-
-      const btnAddTypeTask = document.createElement('button');
-      btnAddTypeTask.classList.add('btn-add-type');
-      btnAddTypeTask.innerHTML = 'Task';
-
-      const btnDismiss = document.createElement('button');
-      btnDismiss.classList.add('btn-dismiss');
-      btnDismiss.innerHTML = 'close';
-
-      workspace.appendChild(underlay);
-      workspace.appendChild(buttonWrapper);
-      buttonWrapper.appendChild(addTypePrompt);
-      buttonWrapper.appendChild(btnAddTypeProject);
-      buttonWrapper.appendChild(btnAddTypeTask);
-      buttonWrapper.appendChild(btnDismiss);
-
-      underlay.addEventListener('click', () => UI.removeAddTypeButtons());
-      btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
+    if (document.getElementById('underlay')) {
+      document.getElementById('underlay').remove();
+      document.getElementById('button-wrapper').remove();
     }
+    const workspace = document.getElementById('workspace');
+
+    const underlay = document.createElement('div');
+    underlay.classList.add('underlay');
+    underlay.id = 'underlay';
+
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.classList.add('button-wrapper');
+    buttonWrapper.id = 'button-wrapper';
+
+    const addTypePrompt = document.createElement('h4');
+    addTypePrompt.classList.add('add-type-prompt-text');
+    addTypePrompt.innerHTML = 'What would you like to add?';
+
+    const btnAddTypeProject = document.createElement('button');
+    btnAddTypeProject.classList.add('btn-add-type');
+    btnAddTypeProject.innerHTML = 'Project';
+
+    const btnAddTypeTask = document.createElement('button');
+    btnAddTypeTask.classList.add('btn-add-type');
+    btnAddTypeTask.innerHTML = 'Task';
+
+    const btnDismiss = document.createElement('button');
+    btnDismiss.classList.add('btn-dismiss');
+    btnDismiss.innerHTML = 'close';
+
+    workspace.appendChild(underlay);
+    workspace.appendChild(buttonWrapper);
+    buttonWrapper.appendChild(addTypePrompt);
+    buttonWrapper.appendChild(btnAddTypeProject);
+    buttonWrapper.appendChild(btnAddTypeTask);
+    buttonWrapper.appendChild(btnDismiss);
+
+    underlay.addEventListener('click', () => UI.removeAddTypeButtons());
+    btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
+    btnAddTypeProject.addEventListener('click', () => UI.addProjectCard());
   }
 
   static removeAddTypeButtons() {
     const underlay = document.getElementById('underlay');
     const buttonWrapper = document.getElementById('button-wrapper');
 
-    underlay.remove();
     buttonWrapper.remove();
+    underlay.remove();
+  }
+
+  static addProjectCard() {
+    const buttonWrapper = document.getElementById('button-wrapper');
+    buttonWrapper.innerHTML = '';
   }
 
   static addEditTaskCard(
