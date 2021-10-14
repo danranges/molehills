@@ -114,6 +114,7 @@ export default class UI {
     underlay.addEventListener('click', () => UI.removeAddTypeButtons());
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     btnAddTypeProject.addEventListener('click', () => UI.addProjectCard());
+    btnAddTypeTask.addEventListener('click', () => UI.addEditTaskCard());
   }
 
   static removeAddTypeButtons() {
@@ -157,6 +158,8 @@ export default class UI {
 
   static addNewProject() {}
 
+  static addNewTask() {}
+
   static addEditTaskCard(
     name = 'Task',
     desc = 'Description',
@@ -164,14 +167,8 @@ export default class UI {
     status = false,
     addEdit = 'Add Task',
   ) {
-    const workspace = document.getElementById('workspace');
-    workspace.innerHTML = '';
-
-    const overlay = document.createElement('div');
-    overlay.classList.add('new-task-overlay');
-
-    const card = document.createElement('div');
-    card.classList.add('new-task-card');
+    const buttonWrapper = document.getElementById('button-wrapper');
+    buttonWrapper.innerHTML = '';
 
     const cardForm = document.createElement('form');
     cardForm.id = 'new-task-form';
@@ -209,15 +206,13 @@ export default class UI {
     formSubmit.setAttribute('type', 'submit');
     formSubmit.setAttribute('value', addEdit);
 
-    workspace.appendChild(overlay);
-    overlay.appendChild(card);
-    card.appendChild(cardForm);
+    buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(taskName);
     cardForm.appendChild(taskProj);
     cardForm.appendChild(taskDesc);
     cardForm.appendChild(taskStatusLabel);
     cardForm.appendChild(formSubmit);
 
-    // cardForm.addEventListener('submit', Task.appendNewTask);
+    cardForm.addEventListener('submit', () => Task.addNewTask());
   }
 }

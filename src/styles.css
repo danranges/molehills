@@ -6,6 +6,7 @@
 
 html,
 body {
+  /* background-color: rgb(37, 40, 46);  dark mode? */
   display: flex;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
