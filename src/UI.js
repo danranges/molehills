@@ -138,19 +138,23 @@ export default class UI {
     projectName.setAttribute('name', 'ProjectName');
     projectName.setAttribute('placeholder', 'Project Name');
 
+    const cancelCreateContainer = document.createElement('div');
+    cancelCreateContainer.classList.add('cancel-create-container');
+
     const btnDismiss = document.createElement('button');
     btnDismiss.classList.add('btn-dismiss-submit');
     btnDismiss.innerHTML = 'cancel';
 
-    const formSubmit = document.createElement('input');
+    const formSubmit = document.createElement('button');
     formSubmit.classList.add('btn-dismiss-submit');
     formSubmit.setAttribute('type', 'submit');
-    formSubmit.setAttribute('value', 'create');
+    formSubmit.innerHTML = 'create';
 
     buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(projectName);
-    cardForm.appendChild(btnDismiss);
-    cardForm.appendChild(formSubmit);
+    cardForm.appendChild(cancelCreateContainer);
+    cancelCreateContainer.appendChild(btnDismiss);
+    cancelCreateContainer.appendChild(formSubmit);
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     cardForm.addEventListener('submit', () => UI.addNewProject());
@@ -165,7 +169,7 @@ export default class UI {
     desc = 'Description',
     project = 'Project',
     status = false,
-    addEdit = 'Add Task',
+    addEdit = 'add task',
   ) {
     const buttonWrapper = document.getElementById('button-wrapper');
     buttonWrapper.innerHTML = '';
@@ -202,17 +206,28 @@ export default class UI {
     taskStatusLabel.innerHTML = 'Completed?';
     taskStatusLabel.appendChild(taskStatus);
 
-    const formSubmit = document.createElement('input');
+    const cancelCreateContainer = document.createElement('div');
+    cancelCreateContainer.classList.add('cancel-create-container');
+
+    const btnDismiss = document.createElement('button');
+    btnDismiss.classList.add('btn-dismiss-submit');
+    btnDismiss.innerHTML = 'cancel';
+
+    const formSubmit = document.createElement('button');
+    formSubmit.classList.add('btn-dismiss-submit');
     formSubmit.setAttribute('type', 'submit');
-    formSubmit.setAttribute('value', addEdit);
+    formSubmit.innerHTML = addEdit;
 
     buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(taskName);
     cardForm.appendChild(taskProj);
     cardForm.appendChild(taskDesc);
     cardForm.appendChild(taskStatusLabel);
-    cardForm.appendChild(formSubmit);
+    cardForm.appendChild(cancelCreateContainer);
+    cancelCreateContainer.appendChild(btnDismiss);
+    cancelCreateContainer.appendChild(formSubmit);
 
+    btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     cardForm.addEventListener('submit', () => Task.addNewTask());
   }
 }

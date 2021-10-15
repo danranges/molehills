@@ -77,6 +77,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -94,17 +95,30 @@ h4 {
   color: rgb(85, 85, 85);
 }
 
+.cancel-create-container {
+  display: flex;
+  align-content: center;
+}
+
 .btn-add-type {
   border-radius: 1000px;
   margin: 1rem 2rem;
+  width: 80%;
   height: 5rem;
   border: solid 2.5px;
 }
 
 .btn-dismiss-submit {
+  display: inline-flex;
+  width: 50%;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: text-bottom;
   border: none;
   height: 2rem;
-  margin: 1rem 2rem;
+  padding: 1rem;
+  margin: 1rem 1rem;
   font-size: 0.75rem;
   color: transparent;
   -webkit-text-fill-color: transparent;
@@ -113,8 +127,8 @@ h4 {
   -webkit-background-clip: text;
 }
 
-.btn-dismiss:active {
-  font-size: 1.125rem;
+.btn-dismiss-submit:active {
+  font-size: 0.9rem;
 }
 
 .nav {
@@ -177,9 +191,10 @@ button:active {
   -webkit-mask-image: url(../Assets/options.svg);
 }
 
-.new-task-overlay {
-  width: 100%;
+.new-project-form {
   display: flex;
+  margin: 3rem;
+  flex-direction: column;
   justify-content: center;
 }
 
