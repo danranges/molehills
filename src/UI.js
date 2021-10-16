@@ -59,6 +59,7 @@ export default class UI {
     document.body.appendChild(createNav());
 
     UI.renderHome();
+    Storage.initTodoList();
   }
 
   static renderHome() {
@@ -147,7 +148,7 @@ export default class UI {
 
     const formSubmit = document.createElement('button');
     formSubmit.classList.add('btn-dismiss-submit');
-    formSubmit.setAttribute('type', 'submit');
+    // formSubmit.setAttribute('type', 'submit');
     formSubmit.innerHTML = 'create';
 
     buttonWrapper.appendChild(cardForm);
@@ -157,10 +158,16 @@ export default class UI {
     cancelCreateContainer.appendChild(formSubmit);
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
-    cardForm.addEventListener('submit', () => UI.addNewProject());
+    cardForm.addEventListener('submit', (e) => {
+      UI.addNewProject(cardForm.elements[0].value);
+      e.preventDefault();
+    });
   }
 
-  static addNewProject() {}
+  static addNewProject(project) {
+    Storage.addProject(project);
+    UI.removeAddTypeButtons();
+  }
 
   static addNewTask() {}
 
