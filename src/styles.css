@@ -41,14 +41,24 @@ body {
 }
 
 .header-icon {
-  height: 2.75rem;
+  height: 3rem;
+  background-color: black;
+  mask-image: url(../Assets/mole.svg);
+  mask-size: 2em;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-origin: content-box;
+  -webkit-mask-size: 2em;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-origin: content-box;
 }
 
 .header-text {
   padding: 0px 0.25rem;
   font-size: 1.5rem;
   font-family: 'Pacifico', sans-serif;
-  background: -webkit-linear-gradient(#0bb1d4, #9f2fff);
+  background-color: black;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -72,7 +82,6 @@ body {
 }
 
 .button-wrapper {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -85,7 +94,8 @@ body {
   background-color: white;
   width: 80%;
   max-width: 400px;
-  height: 50%;
+  border-radius: 2rem;
+  padding-bottom: 1rem;
 }
 
 h4 {
@@ -118,11 +128,12 @@ h4 {
   border: none;
   height: 2rem;
   padding: 1rem;
-  margin: 1rem 1rem;
+  margin: 1rem 1rem 0;
   font-size: 0.75rem;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  background: -webkit-linear-gradient(#0bb1d4, #9f2fff);
+  background-color: black;
+
   background-clip: text;
   -webkit-background-clip: text;
 }
@@ -155,6 +166,7 @@ button {
   padding: 2rem;
 }
 
+button:hover,
 button:active {
   mask-size: 2.25em;
   -webkit-mask-size: 2.25em;
@@ -165,7 +177,8 @@ button:active {
 .btn-menu {
   width: 30vw;
   height: 2.75em;
-  background: -webkit-linear-gradient(#9f2fff, #0bb1d4);
+  background-color: black;
+
   mask-size: 2em;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -193,7 +206,7 @@ button:active {
 
 .new-project-form {
   display: flex;
-  margin: 3rem;
+  margin: 2.25rem 1rem 1rem;
   flex-direction: column;
   justify-content: center;
 }
@@ -205,7 +218,7 @@ button:active {
 .new-task-form {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  margin: 2.25rem 1rem 1rem;
   width: 18rem;
 }
 
@@ -216,7 +229,7 @@ textarea {
 input,
 label,
 textarea {
-  margin: 5px 0px;
+  margin: 0.5rem;
   font-family: sans-serif;
   font-size: 0.75rem;
 }
