@@ -1,5 +1,7 @@
 import Logo from '../Assets/mole.svg';
 import Storage from './storage';
+import TodoList from './todolist';
+import Project from './project';
 
 export default class UI {
   static render() {
@@ -67,7 +69,13 @@ export default class UI {
   }
 
   static renderProjects() {
-    workspace.innerHTML = 'PROJECTS';
+    const todoList = Storage.getTodoList();
+    workspace.innerHTML = '';
+    todoList.getProjects().forEach((project) => UI.initProjectHeader(project));
+  }
+
+  static initProjectHeader(project) {
+    console.log(project.name);
   }
 
   static clearWorkspace() {
