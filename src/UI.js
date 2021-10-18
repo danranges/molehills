@@ -75,7 +75,21 @@ export default class UI {
   }
 
   static initProjectHeader(project) {
-    console.log(project.name);
+    const workspace = document.getElementById('workspace');
+
+    const projectContainer = document.createElement('div');
+    projectContainer.classList.add('project-container');
+
+    const projectHeader = document.createElement('div');
+    projectHeader.classList.add('project-header');
+
+    const projectName = document.createElement('p');
+    projectName.classList.add('project-name');
+    projectName.innerHTML = project.name;
+
+    workspace.appendChild(projectContainer);
+    projectContainer.appendChild(projectHeader);
+    projectHeader.appendChild(projectName);
   }
 
   static clearWorkspace() {
