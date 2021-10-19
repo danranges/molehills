@@ -19,5 +19,8 @@ export default class TodoList {
     this.projects.push(new Project(project));
   }
 
-  deleteProject(project) {}
+  deleteProject(project) {
+    const toDelete = this.projects.find(({ name }) => name === project.name);
+    this.projects.splice(this.projects.indexOf(toDelete), 1);
+  }
 }

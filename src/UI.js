@@ -87,9 +87,21 @@ export default class UI {
     projectName.classList.add('project-name');
     projectName.innerHTML = project.name;
 
+    const btnDeleteProject = document.createElement('button');
+    btnDeleteProject.classList.add('btn-delete-project');
+    btnDeleteProject.innerHTML = 'X';
+
     workspace.appendChild(projectContainer);
     projectContainer.appendChild(projectHeader);
     projectHeader.appendChild(projectName);
+    projectHeader.appendChild(btnDeleteProject);
+
+    btnDeleteProject.addEventListener('click', () => UI.deleteProject(project));
+  }
+
+  static deleteProject(project) {
+    Storage.deleteProject(project);
+    UI.renderProjects();
   }
 
   static clearWorkspace() {
@@ -189,6 +201,7 @@ export default class UI {
   static addNewProject(project) {
     Storage.addProject(project);
     UI.removeAddTypeButtons();
+    UI.renderProjects();
   }
 
   static addNewTask() {}
