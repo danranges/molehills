@@ -114,6 +114,18 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 3.25rem;
+}
+
+.new-project-name-input {
+  border: 1px solid black;
+  border-radius: 0.25em;
+  vertical-align: middle;
+  margin-left: 0;
+  padding: 0.125rem 0 0 0.5rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  width: 60%;
 }
 
 .btn-add-type {
@@ -214,7 +226,8 @@ button:active {
   text-align: center;
   vertical-align: middle;
   height: 1rem;
-  padding: 1rem;
+  padding: 0.625rem 0.5rem 0.75rem;
+  margin-left: 0.5em;
 }
 
 .new-project-form {

@@ -89,7 +89,7 @@ export default class UI {
 
     const btnDeleteProject = document.createElement('button');
     btnDeleteProject.classList.add('btn-delete-project');
-    btnDeleteProject.innerHTML = 'X';
+    btnDeleteProject.innerHTML = '×';
 
     workspace.appendChild(projectContainer);
     projectContainer.appendChild(projectHeader);
@@ -97,6 +97,48 @@ export default class UI {
     projectHeader.appendChild(btnDeleteProject);
 
     btnDeleteProject.addEventListener('click', () => UI.deleteProject(project));
+    projectName.addEventListener('dblclick', () =>
+      UI.editProjectNameHeaderView(project, projectHeader),
+    );
+  }
+
+  static editProjectNameHeaderView(project, projectHeader) {
+    projectHeader.innerHTML = '';
+
+    const newNameInput = document.createElement('input');
+    newNameInput.setAttribute('type', 'text');
+    newNameInput.setAttribute('name', 'New Project Name');
+    newNameInput.setAttribute('value', project.name);
+    newNameInput.classList.add('new-project-name-input');
+
+    const btnContainer = document.createElement('div');
+    btnContainer.classList.add('cancel-create-container');
+
+    const btnSubmit = document.createElement('button');
+    btnSubmit.classList.add('btn-delete-project');
+    btnSubmit.innerHTML = 'update';
+
+    const btnCancel = document.createElement('button');
+    btnCancel.classList.add('btn-delete-project');
+    btnCancel.innerHTML = 'cancel';
+
+    projectHeader.appendChild(newNameInput);
+    projectHeader.appendChild(btnContainer);
+    btnContainer.appendChild(btnCancel);
+    btnContainer.appendChild(btnSubmit);
+
+    newNameInput.focus();
+
+    btnSubmit.addEventListener('click', () => {
+      UI.editProject(project, newNameInput.value);
+    });
+
+    btnCancel.addEventListener('click', () => UI.renderProjects());
+  }
+
+  static editProject(project, newName) {
+    Storage.editProject(project, newName);
+    UI.renderProjects();
   }
 
   static deleteProject(project) {
@@ -182,7 +224,6 @@ export default class UI {
 
     const formSubmit = document.createElement('button');
     formSubmit.classList.add('btn-dismiss-submit');
-    // formSubmit.setAttribute('type', 'submit');
     formSubmit.innerHTML = 'create';
 
     buttonWrapper.appendChild(cardForm);
