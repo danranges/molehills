@@ -45,4 +45,11 @@ export default class Storage {
     todoList.getProject(project).setProject(newName);
     Storage.setTodoList(todoList);
   }
+
+  static addTask(project, taskName) {
+    const todoList = Storage.getTodoList();
+    todoList.getProject(project).addTask(taskName);
+    console.log(todoList);
+    Storage.setTodoList(todoList);
+  }
 }

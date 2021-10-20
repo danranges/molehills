@@ -22,7 +22,9 @@ export default class Project {
     this.tasks = tasks;
   }
 
-  addTask(task) {}
+  addTask(task) {
+    this.tasks.push(new Task(task));
+  }
 
   deleteTask(task) {}
 

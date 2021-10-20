@@ -98,7 +98,7 @@ export default class UI {
     btnDeleteProject.classList.add('btn-delete-project');
     btnDeleteProject.innerHTML = '×';
 
-    const addTaskCard = UI.addTaskHeaderView();
+    const addTaskCard = UI.addTaskHeaderView(project);
 
     workspace.appendChild(projectContainer);
     projectContainer.appendChild(projectHeader);
@@ -119,6 +119,11 @@ export default class UI {
 
   static showAddTaskHeaderView(addTaskCard) {
     addTaskCard.style.display = 'block';
+  }
+
+  static hideTaskHeaderView(addTaskCard, taskNameInput) {
+    addTaskCard.style.display = 'none';
+    taskNameInput.value = '';
   }
 
   static addTaskHeaderView(project) {
@@ -147,10 +152,9 @@ export default class UI {
     btnAddTask.addEventListener('click', () => {
       UI.addNewTask(project, taskNameInput.value);
     });
-    btnCancel.addEventListener(
-      'click',
-      () => (addTaskCard.style.display = 'none'),
-    );
+    btnCancel.addEventListener('click', () => {
+      UI.hideTaskHeaderView(addTaskCard, taskNameInput);
+    });
 
     return addTaskCard;
   }
@@ -300,6 +304,7 @@ export default class UI {
 
   static addNewTask(project, taskName) {
     if (taskName) {
+      Storage.addTask(project, taskName);
       UI.renderProjects();
     }
   }
