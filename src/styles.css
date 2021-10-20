@@ -112,9 +112,13 @@ h4 {
 
 .project-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  height: 3.25rem;
+  height: 2rem;
+}
+
+.project-name {
+  margin-bottom: 0;
 }
 
 .new-project-name-input {
@@ -191,7 +195,7 @@ button:active {
 }
 
 .btn-home,
-.btn-add-task,
+.btn-add,
 .btn-menu {
   width: 30vw;
   height: 2.75em;
@@ -212,7 +216,7 @@ button:active {
   -webkit-mask-image: url(../Assets/home.svg);
 }
 
-.btn-add-task {
+.btn-add {
   mask-image: url(../Assets/mono-svn-add.svg);
   -webkit-mask-image: url(../Assets/mono-svn-add.svg);
 }
@@ -222,7 +226,8 @@ button:active {
   -webkit-mask-image: url(../Assets/options.svg);
 }
 
-.btn-delete-project {
+.btn-delete-project,
+.btn-add-task {
   text-align: center;
   vertical-align: middle;
   height: 1rem;

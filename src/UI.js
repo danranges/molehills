@@ -42,7 +42,7 @@ export default class UI {
       btnHome.addEventListener('click', UI.renderHome);
 
       const btnAddTask = document.createElement('button');
-      btnAddTask.classList.add('btn-add-task');
+      btnAddTask.classList.add('btn-add');
       btnAddTask.addEventListener('click', () => UI.initAddTypeButtons());
 
       const btnMenu = document.createElement('button');
@@ -78,7 +78,7 @@ export default class UI {
     const workspace = document.getElementById('workspace');
 
     const projectContainer = document.createElement('div');
-    projectContainer.classList.add('project-container');
+    projectContainer.classList.add('container');
 
     const projectHeader = document.createElement('div');
     projectHeader.classList.add('project-header');
@@ -87,19 +87,72 @@ export default class UI {
     projectName.classList.add('project-name');
     projectName.innerHTML = project.name;
 
+    const projectBtnContainer = document.createElement('div');
+    projectBtnContainer.classList.add('project-btn-container');
+
+    const btnShowAddTask = document.createElement('button');
+    btnShowAddTask.classList.add('btn-add-task');
+    btnShowAddTask.innerHTML = 'add task';
+
     const btnDeleteProject = document.createElement('button');
     btnDeleteProject.classList.add('btn-delete-project');
     btnDeleteProject.innerHTML = '×';
 
+    const addTaskCard = UI.addTaskHeaderView();
+
     workspace.appendChild(projectContainer);
     projectContainer.appendChild(projectHeader);
+    projectContainer.appendChild(addTaskCard);
     projectHeader.appendChild(projectName);
-    projectHeader.appendChild(btnDeleteProject);
+    projectHeader.appendChild(projectBtnContainer);
+    projectBtnContainer.appendChild(btnShowAddTask);
+    projectBtnContainer.appendChild(btnDeleteProject);
 
     btnDeleteProject.addEventListener('click', () => UI.deleteProject(project));
     projectName.addEventListener('dblclick', () =>
       UI.editProjectNameHeaderView(project, projectHeader),
     );
+    btnShowAddTask.addEventListener('click', () =>
+      UI.showAddTaskHeaderView(addTaskCard),
+    );
+  }
+
+  static showAddTaskHeaderView(addTaskCard) {
+    addTaskCard.style.display = 'block';
+  }
+
+  static addTaskHeaderView(project) {
+    const addTaskCard = document.createElement('div');
+    addTaskCard.classList.add('container');
+
+    const taskNameInput = document.createElement('input');
+    taskNameInput.setAttribute('type', 'text');
+    taskNameInput.setAttribute('name', 'TaskName');
+    taskNameInput.setAttribute('placeholder', 'New Task');
+
+    const btnAddTask = document.createElement('button');
+    btnAddTask.classList.add('btn-add-task');
+    btnAddTask.innerHTML = 'create';
+
+    const btnCancel = document.createElement('button');
+    btnCancel.classList.add('btn-add-task');
+    btnCancel.innerHTML = 'cancel';
+
+    addTaskCard.appendChild(taskNameInput);
+    addTaskCard.appendChild(btnAddTask);
+    addTaskCard.appendChild(btnCancel);
+
+    addTaskCard.style.display = 'none';
+
+    btnAddTask.addEventListener('click', () => {
+      UI.addNewTask(project, taskNameInput.value);
+    });
+    btnCancel.addEventListener(
+      'click',
+      () => (addTaskCard.style.display = 'none'),
+    );
+
+    return addTaskCard;
   }
 
   static editProjectNameHeaderView(project, projectHeader) {
@@ -245,12 +298,16 @@ export default class UI {
     UI.renderProjects();
   }
 
-  static addNewTask() {}
+  static addNewTask(project, taskName) {
+    if (taskName) {
+      UI.renderProjects();
+    }
+  }
 
   static addEditTaskCard(
+    project = 'Project',
     name = 'Task',
     desc = 'Description',
-    project = 'Project',
     status = false,
     addEdit = 'add task',
   ) {
