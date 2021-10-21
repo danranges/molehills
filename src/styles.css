@@ -113,21 +113,26 @@ h4 {
 .project-header {
   display: flex;
   align-items: flex-end;
+  align-content: flex-end;
   justify-content: space-between;
   height: 2rem;
 }
 
 .project-name {
   margin-bottom: 0;
+  width: 70%;
 }
 
 .new-project-name-input {
   border: 1px solid black;
   border-radius: 0.25em;
+  outline: none;
+  align-self: flex-end;
   vertical-align: middle;
   margin-left: 0;
+  margin-bottom: 0;
   padding: 0.125rem 0 0 0.5rem;
-  height: 1.5rem;
+  height: 1.25rem;
   font-size: 1rem;
   width: 60%;
 }

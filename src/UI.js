@@ -92,7 +92,7 @@ export default class UI {
 
     const btnShowAddTask = document.createElement('button');
     btnShowAddTask.classList.add('btn-add-task');
-    btnShowAddTask.innerHTML = 'add task';
+    btnShowAddTask.innerHTML = '+';
 
     const btnDeleteProject = document.createElement('button');
     btnDeleteProject.classList.add('btn-delete-project');
@@ -100,9 +100,12 @@ export default class UI {
 
     const addTaskCard = UI.addTaskHeaderView(project);
 
+    const tasksContainer = UI.renderTasks(project);
+
     workspace.appendChild(projectContainer);
     projectContainer.appendChild(projectHeader);
     projectContainer.appendChild(addTaskCard);
+    projectContainer.appendChild(tasksContainer);
     projectHeader.appendChild(projectName);
     projectHeader.appendChild(projectBtnContainer);
     projectBtnContainer.appendChild(btnShowAddTask);
@@ -115,6 +118,19 @@ export default class UI {
     btnShowAddTask.addEventListener('click', () =>
       UI.showAddTaskHeaderView(addTaskCard),
     );
+  }
+
+  static renderTasks(project) {
+    const tasksContainer = document.createElement('div');
+    project.getTasks().forEach((task) => {
+      const taskItem = document.createElement('p');
+      taskItem.innerHTML = task.name;
+
+      tasksContainer.appendChild(taskItem);
+      console.log(task.name);
+    });
+
+    return tasksContainer;
   }
 
   static showAddTaskHeaderView(addTaskCard) {
