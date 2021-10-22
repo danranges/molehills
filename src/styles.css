@@ -119,8 +119,20 @@ h4 {
 }
 
 .project-name {
+  user-select: none;
   margin-bottom: 0;
   width: 70%;
+}
+
+.task-item {
+  user-select: none;
+  padding-left: 1rem;
+  font-size: 0.8625rem;
+}
+
+.done {
+  color: grey;
+  text-decoration: line-through;
 }
 
 .new-project-name-input {

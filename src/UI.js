@@ -2,6 +2,7 @@ import Logo from '../Assets/mole.svg';
 import Storage from './storage';
 import TodoList from './todolist';
 import Project from './project';
+import Task from './task';
 
 export default class UI {
   static render() {
@@ -124,13 +125,23 @@ export default class UI {
     const tasksContainer = document.createElement('div');
     project.getTasks().forEach((task) => {
       const taskItem = document.createElement('p');
+      taskItem.classList.add('task-item');
+      if (task.status) taskItem.classList.add('done');
       taskItem.innerHTML = task.name;
 
+      taskItem.addEventListener('dblclick', () => {
+        UI.markTaskDone(project, task, taskItem);
+      });
+
       tasksContainer.appendChild(taskItem);
-      console.log(task.name);
     });
 
     return tasksContainer;
+  }
+
+  static markTaskDone(project, task, taskDOM) {
+    Storage.setTaskStatus(project, task);
+    taskDOM.classList.toggle('done');
   }
 
   static showAddTaskHeaderView(addTaskCard) {

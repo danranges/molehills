@@ -21,6 +21,12 @@ export default class Storage {
         .map((project) => Object.assign(new Project(project), project)),
     );
 
+    todoList.getProjects().forEach((project) => {
+      project.setTasks(
+        project.getTasks().map((task) => Object.assign(new Task(task), task)),
+      );
+    });
+
     return todoList;
   }
 
@@ -49,7 +55,12 @@ export default class Storage {
   static addTask(project, taskName) {
     const todoList = Storage.getTodoList();
     todoList.getProject(project).addTask(taskName);
-    console.log(todoList);
+    Storage.setTodoList(todoList);
+  }
+
+  static setTaskStatus(project, task) {
+    const todoList = Storage.getTodoList();
+    todoList.getProject(project).getTask(task).setStatus();
     Storage.setTodoList(todoList);
   }
 }
