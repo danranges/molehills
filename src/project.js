@@ -30,7 +30,10 @@ export default class Project {
     this.tasks.push(new Task(task));
   }
 
-  deleteTask(task) {}
+  deleteTask(task) {
+    const toDelete = this.tasks.find(({ name }) => name === task.name);
+    this.tasks.splice(this.tasks.indexOf(toDelete), 1);
+  }
 
   sortTasks() {}
 }

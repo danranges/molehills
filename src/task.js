@@ -10,6 +10,5 @@ export default class Task {
 
   setStatus() {
     this.status = !this.status;
-    console.log('status changed');
   }
 }

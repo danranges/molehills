@@ -58,6 +58,12 @@ export default class Storage {
     Storage.setTodoList(todoList);
   }
 
+  static deleteTask(project, task) {
+    const todoList = Storage.getTodoList();
+    todoList.getProject(project).deleteTask(task);
+    Storage.setTodoList(todoList);
+  }
+
   static setTaskStatus(project, task) {
     const todoList = Storage.getTodoList();
     todoList.getProject(project).getTask(task).setStatus();

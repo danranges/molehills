@@ -123,14 +123,28 @@ export default class UI {
 
   static renderTasks(project) {
     const tasksContainer = document.createElement('div');
+
     project.getTasks().forEach((task) => {
-      const taskItem = document.createElement('p');
-      taskItem.classList.add('task-item');
-      if (task.status) taskItem.classList.add('done');
-      taskItem.innerHTML = task.name;
+      const taskItem = document.createElement('div');
+      taskItem.classList.add('task-container');
+
+      const taskName = document.createElement('p');
+      taskName.classList.add('task-item');
+      if (task.status) taskName.classList.add('done');
+      taskName.innerHTML = task.name;
+
+      const btnDelete = document.createElement('button');
+      btnDelete.classList.add('btn-delete-project');
+      btnDelete.innerHTML = '×';
+
+      taskItem.appendChild(taskName);
+      taskItem.appendChild(btnDelete);
 
       taskItem.addEventListener('dblclick', () => {
         UI.markTaskDone(project, task, taskItem);
+      });
+      btnDelete.addEventListener('click', () => {
+        UI.deleteTask(project, task);
       });
 
       tasksContainer.appendChild(taskItem);
@@ -151,6 +165,11 @@ export default class UI {
   static hideTaskHeaderView(addTaskCard, taskNameInput) {
     addTaskCard.style.display = 'none';
     taskNameInput.value = '';
+  }
+
+  static deleteTask(project, task) {
+    Storage.deleteTask(project, task);
+    UI.renderProjects();
   }
 
   static addTaskHeaderView(project) {
