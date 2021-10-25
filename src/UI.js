@@ -431,11 +431,14 @@ export default class UI {
       .getProjects()
       .map((project) => project.name);
 
+    projectNames.sort();
+
     for (let i = 0; i < projectNames.length; i++) {
       let proj = projectNames[i];
       let el = document.createElement('option');
       el.textContent = proj;
       el.value = proj;
+      console.log(el.value);
       projectDropdown.appendChild(el);
     }
 
