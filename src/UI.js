@@ -380,10 +380,7 @@ export default class UI {
     taskDesc.setAttribute('placeholder', desc);
     taskDesc.setAttribute('rows', 5);
 
-    const taskProj = document.createElement('input');
-    taskProj.setAttribute('type', 'text');
-    taskProj.setAttribute('name', 'TaskProject');
-    taskProj.setAttribute('placeholder', project);
+    const taskProj = UI.initProjectSelection();
 
     const taskStatus = document.createElement('input');
     taskStatus.setAttribute('type', 'checkbox');
@@ -420,5 +417,28 @@ export default class UI {
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     cardForm.addEventListener('submit', () => Task.addNewTask());
+  }
+
+  static initProjectSelection() {
+    const projectDropdown = document.createElement('select');
+    projectDropdown.id = 'project-dropdown';
+
+    const defaultProject = document.createElement('option');
+    defaultProject.textContent = 'Select project';
+    projectDropdown.appendChild(defaultProject);
+
+    const projectNames = Storage.getTodoList()
+      .getProjects()
+      .map((project) => project.name);
+
+    for (let i = 0; i < projectNames.length; i++) {
+      let proj = projectNames[i];
+      let el = document.createElement('option');
+      el.textContent = proj;
+      el.value = proj;
+      projectDropdown.appendChild(el);
+    }
+
+    return projectDropdown;
   }
 }
