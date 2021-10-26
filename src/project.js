@@ -31,8 +31,8 @@ export default class Project {
     return this.tasks.find(({ name }) => name === task.name);
   }
 
-  addTask(task) {
-    this.tasks.push(new Task(task));
+  addTask(taskName, taskDesc) {
+    this.tasks.push(new Task(taskName, taskDesc));
   }
 
   deleteTask(task) {

@@ -40,6 +40,16 @@ body {
   cursor: pointer;
 }
 
+.header > .nav {
+  display: none;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .header-icon {
   height: 3rem;
   background-color: black;
@@ -282,4 +292,57 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+#footer {
+  display: none;
+  justify-content: center;
+  align-content: center;
+}
+
+p.footer,
+a.footer,
+a.footer:visited {
+  color: black;
+  align-self: center;
+  text-decoration: none;
+  font-size: 0.7rem;
+}
+
+#gh-logo {
+  width: 24px;
+  padding: 0px 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header-container {
+    padding-left: 1rem;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .header > .nav {
+    display: flex;
+    padding: 0 0 0 0.5rem;
+    max-width: 50%;
+    justify-content: flex-end;
+  }
+
+  .btn-home,
+  .btn-add,
+  .btn-menu {
+    width: 3rem;
+    height: 2rem;
+  }
+
+  #footer {
+    display: flex;
+  }
 }

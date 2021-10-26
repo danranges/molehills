@@ -10,6 +10,9 @@ export default class UI {
       const header = document.createElement('div');
       header.classList.add('header');
 
+      const hdrContainer = document.createElement('div');
+      hdrContainer.classList.add('header-container');
+
       const hdrLogo = new Image();
       hdrLogo.src = Logo;
       hdrLogo.classList.add('header-icon');
@@ -18,10 +21,12 @@ export default class UI {
       hdrTxt.innerHTML = 'Molehills';
       hdrTxt.classList.add('header-text');
 
-      header.appendChild(hdrLogo);
-      header.appendChild(hdrTxt);
+      header.appendChild(hdrContainer);
+      hdrContainer.appendChild(hdrLogo);
+      hdrContainer.appendChild(hdrTxt);
+      header.appendChild(createNav());
 
-      header.addEventListener('click', () => UI.renderHome());
+      hdrContainer.addEventListener('click', () => UI.renderHome());
 
       return header;
     }
@@ -57,9 +62,21 @@ export default class UI {
       return nav;
     }
 
+    function createFooter() {
+      const footer = document.createElement('div');
+      footer.classList.add('footer');
+      footer.id = 'footer';
+      footer.innerHTML = `<p class="footer">Made by</p> 
+                          <a class="footer" href=https://github.com/danranges> <img id="gh-logo" src="../Assets/GitHub-Mark-64px.png" alt="github logo"/></a>
+                          <a class="footer" href=https://github.com/danranges>Dan Ranges</a>`;
+
+      return footer;
+    }
+
     document.body.appendChild(createHeader());
     document.body.appendChild(createWorkspace());
     document.body.appendChild(createNav());
+    document.body.appendChild(createFooter());
 
     UI.renderHome();
     Storage.initTodoList();
@@ -127,7 +144,7 @@ export default class UI {
     addTaskCard.style.display = 'block';
   }
 
-  static hideTaskHeaderView(addTaskCard, taskNameInput) {
+  static hideAddTaskHeaderView(addTaskCard, taskNameInput) {
     addTaskCard.style.display = 'none';
     taskNameInput.value = '';
   }
@@ -159,7 +176,7 @@ export default class UI {
       UI.addNewTask(project, taskNameInput.value);
     });
     btnCancel.addEventListener('click', () => {
-      UI.hideTaskHeaderView(addTaskCard, taskNameInput);
+      UI.hideAddTaskHeaderView(addTaskCard, taskNameInput);
     });
 
     return addTaskCard;
@@ -350,14 +367,14 @@ export default class UI {
     UI.renderProjects();
   }
 
-  static addNewTask(project, taskName) {
+  static addNewTask(project, taskName, taskDesc) {
     if (taskName) {
-      Storage.addTask(project, taskName);
+      Storage.addTask(project, taskName, taskDesc);
       UI.renderProjects();
     }
   }
 
-  static addTaskCard(name = 'Task') {
+  static addTaskCard() {
     const buttonWrapper = document.getElementById('button-wrapper');
     buttonWrapper.innerHTML = '';
 
@@ -368,13 +385,13 @@ export default class UI {
     const taskName = document.createElement('input');
     taskName.setAttribute('type', 'text');
     taskName.setAttribute('name', 'TaskName');
-    taskName.setAttribute('placeholder', name);
+    taskName.setAttribute('placeholder', 'Task');
 
-    // const taskDesc = document.createElement('textarea');
-    // taskDesc.setAttribute('type', 'text');
-    // taskDesc.setAttribute('name', 'TaskDescription');
-    // taskDesc.setAttribute('placeholder', desc);
-    // taskDesc.setAttribute('rows', 5);
+    const taskDesc = document.createElement('textarea');
+    taskDesc.setAttribute('type', 'text');
+    taskDesc.setAttribute('name', 'TaskDescription');
+    taskDesc.setAttribute('placeholder', 'Description');
+    taskDesc.setAttribute('rows', 5);
 
     const taskProj = UI.initProjectSelection();
 
@@ -392,14 +409,14 @@ export default class UI {
     buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(taskName);
     cardForm.appendChild(taskProj);
-    // cardForm.appendChild(taskDesc);
+    cardForm.appendChild(taskDesc);
     cardForm.appendChild(cancelCreateContainer);
     cancelCreateContainer.appendChild(btnDismiss);
     cancelCreateContainer.appendChild(formSubmit);
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     formSubmit.addEventListener('click', () =>
-      UI.addNewTask(taskProj.value, taskName.value),
+      UI.addNewTask(taskProj.value, taskName.value, taskDesc.value),
     );
   }
 

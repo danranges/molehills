@@ -1,6 +1,7 @@
 import './styles.css';
+import Storage from './storage';
 import UI from './UI';
 
 UI.render();
 UI.renderProjects();
-UI.initProjectSelection();
+console.table(Storage.getTodoList().getProjects());
