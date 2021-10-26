@@ -185,9 +185,7 @@ h4 {
 
 .nav {
   display: flex;
-  /* position: fixed; */
   max-width: 600px;
-  /* position: -webkit-sticky; */
   width: 100%;
   bottom: 0;
   background-color: #fff;
@@ -219,7 +217,6 @@ button:active {
   width: 30vw;
   height: 2.75em;
   background-color: black;
-
   mask-size: 2em;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -254,17 +251,11 @@ button:active {
   margin-left: 0.5em;
 }
 
-.new-project-form {
-  display: flex;
-  margin: 2.25rem 1rem 1rem;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .new-task-card {
   height: 100%;
 }
 
+.new-project-form,
 .new-task-form {
   display: flex;
   flex-direction: column;

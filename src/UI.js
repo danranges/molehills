@@ -86,18 +86,18 @@ export default class UI {
 
     const projectName = document.createElement('p');
     projectName.classList.add('project-name');
-    projectName.innerHTML = project.name;
+    projectName.textContent = project.name;
 
     const projectBtnContainer = document.createElement('div');
     projectBtnContainer.classList.add('project-btn-container');
 
     const btnShowAddTask = document.createElement('button');
     btnShowAddTask.classList.add('btn-add-task');
-    btnShowAddTask.innerHTML = '+';
+    btnShowAddTask.textContent = '+';
 
     const btnDeleteProject = document.createElement('button');
     btnDeleteProject.classList.add('btn-delete-project');
-    btnDeleteProject.innerHTML = '×';
+    btnDeleteProject.textContent = '×';
 
     const addTaskCard = UI.addTaskHeaderView(project);
 
@@ -121,6 +121,64 @@ export default class UI {
     );
   }
 
+  static projectOptions() {}
+
+  static showAddTaskHeaderView(addTaskCard) {
+    addTaskCard.style.display = 'block';
+  }
+
+  static hideTaskHeaderView(addTaskCard, taskNameInput) {
+    addTaskCard.style.display = 'none';
+    taskNameInput.value = '';
+  }
+
+  static addTaskHeaderView(project) {
+    const addTaskCard = document.createElement('div');
+    addTaskCard.classList.add('container');
+
+    const taskNameInput = document.createElement('input');
+    taskNameInput.setAttribute('type', 'text');
+    taskNameInput.setAttribute('name', 'TaskName');
+    taskNameInput.setAttribute('placeholder', 'New Task');
+
+    const btnAddTask = document.createElement('button');
+    btnAddTask.classList.add('btn-add-task');
+    btnAddTask.textContent = 'create';
+
+    const btnCancel = document.createElement('button');
+    btnCancel.classList.add('btn-add-task');
+    btnCancel.textContent = 'cancel';
+
+    addTaskCard.appendChild(taskNameInput);
+    addTaskCard.appendChild(btnAddTask);
+    addTaskCard.appendChild(btnCancel);
+
+    addTaskCard.style.display = 'none';
+
+    btnAddTask.addEventListener('click', () => {
+      UI.addNewTask(project, taskNameInput.value);
+    });
+    btnCancel.addEventListener('click', () => {
+      UI.hideTaskHeaderView(addTaskCard, taskNameInput);
+    });
+
+    return addTaskCard;
+  }
+
+  static editProject(project, newName) {
+    Storage.editProject(project, newName);
+    UI.renderProjects();
+  }
+
+  static deleteProject(project) {
+    Storage.deleteProject(project);
+    UI.renderProjects();
+  }
+
+  static clearWorkspace() {
+    workspace.innerHTML = '';
+  }
+
   static renderTasks(project) {
     const tasksContainer = document.createElement('div');
 
@@ -131,11 +189,11 @@ export default class UI {
       const taskName = document.createElement('p');
       taskName.classList.add('task-item');
       if (task.status) taskName.classList.add('done');
-      taskName.innerHTML = task.name;
+      taskName.textContent = task.name;
 
       const btnDelete = document.createElement('button');
       btnDelete.classList.add('btn-delete-project');
-      btnDelete.innerHTML = '×';
+      btnDelete.textContent = '×';
 
       taskItem.appendChild(taskName);
       taskItem.appendChild(btnDelete);
@@ -158,51 +216,9 @@ export default class UI {
     taskDOM.classList.toggle('done');
   }
 
-  static showAddTaskHeaderView(addTaskCard) {
-    addTaskCard.style.display = 'block';
-  }
-
-  static hideTaskHeaderView(addTaskCard, taskNameInput) {
-    addTaskCard.style.display = 'none';
-    taskNameInput.value = '';
-  }
-
   static deleteTask(project, task) {
     Storage.deleteTask(project, task);
     UI.renderProjects();
-  }
-
-  static addTaskHeaderView(project) {
-    const addTaskCard = document.createElement('div');
-    addTaskCard.classList.add('container');
-
-    const taskNameInput = document.createElement('input');
-    taskNameInput.setAttribute('type', 'text');
-    taskNameInput.setAttribute('name', 'TaskName');
-    taskNameInput.setAttribute('placeholder', 'New Task');
-
-    const btnAddTask = document.createElement('button');
-    btnAddTask.classList.add('btn-add-task');
-    btnAddTask.innerHTML = 'create';
-
-    const btnCancel = document.createElement('button');
-    btnCancel.classList.add('btn-add-task');
-    btnCancel.innerHTML = 'cancel';
-
-    addTaskCard.appendChild(taskNameInput);
-    addTaskCard.appendChild(btnAddTask);
-    addTaskCard.appendChild(btnCancel);
-
-    addTaskCard.style.display = 'none';
-
-    btnAddTask.addEventListener('click', () => {
-      UI.addNewTask(project, taskNameInput.value);
-    });
-    btnCancel.addEventListener('click', () => {
-      UI.hideTaskHeaderView(addTaskCard, taskNameInput);
-    });
-
-    return addTaskCard;
   }
 
   static editProjectNameHeaderView(project, projectHeader) {
@@ -219,11 +235,11 @@ export default class UI {
 
     const btnSubmit = document.createElement('button');
     btnSubmit.classList.add('btn-delete-project');
-    btnSubmit.innerHTML = 'update';
+    btnSubmit.textContent = 'update';
 
     const btnCancel = document.createElement('button');
     btnCancel.classList.add('btn-delete-project');
-    btnCancel.innerHTML = 'cancel';
+    btnCancel.textContent = 'cancel';
 
     projectHeader.appendChild(newNameInput);
     projectHeader.appendChild(btnContainer);
@@ -237,20 +253,6 @@ export default class UI {
     });
 
     btnCancel.addEventListener('click', () => UI.renderProjects());
-  }
-
-  static editProject(project, newName) {
-    Storage.editProject(project, newName);
-    UI.renderProjects();
-  }
-
-  static deleteProject(project) {
-    Storage.deleteProject(project);
-    UI.renderProjects();
-  }
-
-  static clearWorkspace() {
-    workspace.innerHTML = '';
   }
 
   static initAddTypeButtons() {
@@ -270,19 +272,19 @@ export default class UI {
 
     const addTypePrompt = document.createElement('h4');
     addTypePrompt.classList.add('add-type-prompt-text');
-    addTypePrompt.innerHTML = 'What would you like to add?';
+    addTypePrompt.textContent = 'What would you like to add?';
 
     const btnAddTypeProject = document.createElement('button');
     btnAddTypeProject.classList.add('btn-add-type');
-    btnAddTypeProject.innerHTML = 'Project';
+    btnAddTypeProject.textContent = 'Project';
 
     const btnAddTypeTask = document.createElement('button');
     btnAddTypeTask.classList.add('btn-add-type');
-    btnAddTypeTask.innerHTML = 'Task';
+    btnAddTypeTask.textContent = 'Task';
 
     const btnDismiss = document.createElement('button');
     btnDismiss.classList.add('btn-dismiss-submit');
-    btnDismiss.innerHTML = 'cancel';
+    btnDismiss.textContent = 'cancel';
 
     workspace.appendChild(underlay);
     workspace.appendChild(buttonWrapper);
@@ -294,7 +296,7 @@ export default class UI {
     underlay.addEventListener('click', () => UI.removeAddTypeButtons());
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     btnAddTypeProject.addEventListener('click', () => UI.addProjectCard());
-    btnAddTypeTask.addEventListener('click', () => UI.addEditTaskCard());
+    btnAddTypeTask.addEventListener('click', () => UI.addTaskCard());
   }
 
   static removeAddTypeButtons() {
@@ -323,11 +325,11 @@ export default class UI {
 
     const btnDismiss = document.createElement('button');
     btnDismiss.classList.add('btn-dismiss-submit');
-    btnDismiss.innerHTML = 'cancel';
+    btnDismiss.textContent = 'cancel';
 
     const formSubmit = document.createElement('button');
     formSubmit.classList.add('btn-dismiss-submit');
-    formSubmit.innerHTML = 'create';
+    formSubmit.textContent = 'create';
 
     buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(projectName);
@@ -355,13 +357,7 @@ export default class UI {
     }
   }
 
-  static addEditTaskCard(
-    project = 'Project',
-    name = 'Task',
-    desc = 'Description',
-    status = false,
-    addEdit = 'create',
-  ) {
+  static addTaskCard(name = 'Task', desc = 'Description') {
     const buttonWrapper = document.getElementById('button-wrapper');
     buttonWrapper.innerHTML = '';
 
@@ -387,12 +383,12 @@ export default class UI {
 
     const btnDismiss = document.createElement('button');
     btnDismiss.classList.add('btn-dismiss-submit');
-    btnDismiss.innerHTML = 'cancel';
+    btnDismiss.textContent = 'cancel';
 
     const formSubmit = document.createElement('button');
     formSubmit.classList.add('btn-dismiss-submit');
     formSubmit.setAttribute('type', 'submit');
-    formSubmit.innerHTML = addEdit;
+    formSubmit.textContent = 'create';
 
     buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(taskName);
