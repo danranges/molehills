@@ -199,7 +199,7 @@ export default class UI {
       taskItem.appendChild(btnDelete);
 
       taskItem.addEventListener('dblclick', () => {
-        UI.markTaskDone(project, task, taskItem);
+        UI.markTaskDone(project, task, taskName);
       });
       btnDelete.addEventListener('click', () => {
         UI.deleteTask(project, task);
@@ -357,7 +357,7 @@ export default class UI {
     }
   }
 
-  static addTaskCard(name = 'Task', desc = 'Description') {
+  static addTaskCard(name = 'Task') {
     const buttonWrapper = document.getElementById('button-wrapper');
     buttonWrapper.innerHTML = '';
 
@@ -370,11 +370,11 @@ export default class UI {
     taskName.setAttribute('name', 'TaskName');
     taskName.setAttribute('placeholder', name);
 
-    const taskDesc = document.createElement('textarea');
-    taskDesc.setAttribute('type', 'text');
-    taskDesc.setAttribute('name', 'TaskDescription');
-    taskDesc.setAttribute('placeholder', desc);
-    taskDesc.setAttribute('rows', 5);
+    // const taskDesc = document.createElement('textarea');
+    // taskDesc.setAttribute('type', 'text');
+    // taskDesc.setAttribute('name', 'TaskDescription');
+    // taskDesc.setAttribute('placeholder', desc);
+    // taskDesc.setAttribute('rows', 5);
 
     const taskProj = UI.initProjectSelection();
 
@@ -387,19 +387,20 @@ export default class UI {
 
     const formSubmit = document.createElement('button');
     formSubmit.classList.add('btn-dismiss-submit');
-    formSubmit.setAttribute('type', 'submit');
     formSubmit.textContent = 'create';
 
     buttonWrapper.appendChild(cardForm);
     cardForm.appendChild(taskName);
     cardForm.appendChild(taskProj);
-    cardForm.appendChild(taskDesc);
+    // cardForm.appendChild(taskDesc);
     cardForm.appendChild(cancelCreateContainer);
     cancelCreateContainer.appendChild(btnDismiss);
     cancelCreateContainer.appendChild(formSubmit);
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
-    cardForm.addEventListener('submit', () => Task.addNewTask());
+    formSubmit.addEventListener('click', () =>
+      UI.addNewTask(taskProj.value, taskName.value),
+    );
   }
 
   static initProjectSelection() {

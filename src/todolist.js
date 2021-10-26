@@ -20,7 +20,13 @@ export default class TodoList {
   }
 
   getProject(project) {
-    return this.projects.find(({ name }) => name === project.name);
+    if (typeof project === 'object') {
+      return this.projects.find(({ name }) => name === project.name);
+    }
+
+    if (typeof project === 'string') {
+      return this.projects.find(({ name }) => name === project);
+    }
   }
 
   addProject(project) {
