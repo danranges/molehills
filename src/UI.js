@@ -360,7 +360,7 @@ export default class UI {
     name = 'Task',
     desc = 'Description',
     status = false,
-    addEdit = 'add task',
+    addEdit = 'create',
   ) {
     const buttonWrapper = document.getElementById('button-wrapper');
     buttonWrapper.innerHTML = '';
@@ -382,18 +382,6 @@ export default class UI {
 
     const taskProj = UI.initProjectSelection();
 
-    const taskStatus = document.createElement('input');
-    taskStatus.setAttribute('type', 'checkbox');
-    taskStatus.setAttribute('name', 'TaskStatus');
-    taskStatus.checked = status;
-    taskStatus.id = 'task-status-checkbox';
-
-    const taskStatusLabel = document.createElement('label');
-    taskStatusLabel.classList.add('task-status-label');
-    taskStatusLabel.htmlFor = 'task-status-checkbox';
-    taskStatusLabel.innerHTML = 'Completed?';
-    taskStatusLabel.appendChild(taskStatus);
-
     const cancelCreateContainer = document.createElement('div');
     cancelCreateContainer.classList.add('cancel-create-container');
 
@@ -410,7 +398,6 @@ export default class UI {
     cardForm.appendChild(taskName);
     cardForm.appendChild(taskProj);
     cardForm.appendChild(taskDesc);
-    cardForm.appendChild(taskStatusLabel);
     cardForm.appendChild(cancelCreateContainer);
     cancelCreateContainer.appendChild(btnDismiss);
     cancelCreateContainer.appendChild(formSubmit);
@@ -431,14 +418,13 @@ export default class UI {
       .getProjects()
       .map((project) => project.name);
 
-    projectNames.sort();
+    projectNames.sort((a, b) => a.toLowerCase() - b.toLowerCase());
 
     for (let i = 0; i < projectNames.length; i++) {
       let proj = projectNames[i];
       let el = document.createElement('option');
       el.textContent = proj;
       el.value = proj;
-      console.log(el.value);
       projectDropdown.appendChild(el);
     }
 

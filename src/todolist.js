@@ -4,7 +4,6 @@ import Task from './task';
 export default class TodoList {
   constructor() {
     this.projects = [];
-    this.projects.push(new Project('Today'));
   }
 
   getProjects() {
@@ -12,6 +11,11 @@ export default class TodoList {
   }
 
   setProjects(projects) {
+    projects.sort((a, b) => {
+      let x = a.name.toLowerCase(),
+        y = b.name.toLowerCase();
+      return x == y ? 0 : x > y ? 1 : -1;
+    });
     this.projects = projects;
   }
 

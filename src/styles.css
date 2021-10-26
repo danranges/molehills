@@ -268,6 +268,7 @@ button:active {
 .new-task-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 2.25rem 1rem 1rem;
   width: 18rem;
 }
@@ -278,19 +279,12 @@ textarea {
 
 input,
 label,
-textarea {
+textarea,
+select {
   margin: 0.5rem;
   font-family: sans-serif;
   font-size: 0.75rem;
-}
-
-#task-status-checkbox {
-  margin: 0px 5px;
-}
-
-.task-status-label {
-  display: block;
-  justify-items: center;
+  width: 90%;
 }
 
 .task-container {
