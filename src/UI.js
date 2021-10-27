@@ -367,9 +367,10 @@ export default class UI {
     UI.renderProjects();
   }
 
-  static addNewTask(project, taskName, taskDesc) {
+  static addNewTask(project, taskName, taskDesc, taskDue) {
     if (taskName) {
-      Storage.addTask(project, taskName, taskDesc);
+      Storage.addTask(project, taskName, taskDesc, taskDue);
+      console.log(taskDue);
       UI.renderProjects();
     }
   }
@@ -395,6 +396,20 @@ export default class UI {
 
     const taskProj = UI.initProjectSelection();
 
+    const taskDueInput = document.createElement('input');
+    taskDueInput.setAttribute('type', 'date');
+    taskDueInput.id = 'task-due';
+    let taskDueDate = taskDueInput.value;
+    taskDueInput.addEventListener('change', () => {
+      taskDueDate = new Date(taskDueInput.value);
+    });
+
+    const taskDueLabel = document.createElement('label');
+    taskDueLabel.setAttribute('for', taskDueInput.id);
+    taskDueLabel.classList.add('date-label');
+    taskDueLabel.innerHTML = 'Due Date';
+    taskDueLabel.appendChild(taskDueInput);
+
     const cancelCreateContainer = document.createElement('div');
     cancelCreateContainer.classList.add('cancel-create-container');
 
@@ -410,14 +425,20 @@ export default class UI {
     cardForm.appendChild(taskName);
     cardForm.appendChild(taskProj);
     cardForm.appendChild(taskDesc);
+    cardForm.appendChild(taskDueLabel);
     cardForm.appendChild(cancelCreateContainer);
     cancelCreateContainer.appendChild(btnDismiss);
     cancelCreateContainer.appendChild(formSubmit);
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
-    formSubmit.addEventListener('click', () =>
-      UI.addNewTask(taskProj.value, taskName.value, taskDesc.value),
-    );
+    formSubmit.addEventListener('click', () => {
+      UI.addNewTask(
+        taskProj.value,
+        taskName.value,
+        taskDesc.value,
+        taskDueDate,
+      );
+    });
   }
 
   static initProjectSelection() {

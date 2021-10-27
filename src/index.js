@@ -4,4 +4,3 @@ import UI from './UI';
 
 UI.render();
 UI.renderProjects();
-console.table(Storage.getTodoList().getProjects());
