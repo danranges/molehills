@@ -1,9 +1,10 @@
 import Task from './task';
 
 export default class Project {
-  constructor(name) {
+  constructor(name, expanded) {
     this.name = name;
     this.tasks = [];
+    this.expanded = expanded;
   }
 
   getProject() {
@@ -40,5 +41,7 @@ export default class Project {
     this.tasks.splice(this.tasks.indexOf(toDelete), 1);
   }
 
-  sortTasks() {}
+  setView() {
+    this.expanded = !this.expanded;
+  }
 }
