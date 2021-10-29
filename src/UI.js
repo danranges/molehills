@@ -123,7 +123,7 @@ export default class UI {
     projectUIControls.appendChild(iconExpandTasks);
 
     const projectControls = document.createElement('div');
-    projectControls.classList.add('container');
+    projectControls.classList.add('project-controls-container');
     projectControls.classList.add('hidden');
 
     const projectBtnContainer = document.createElement('div');
@@ -208,12 +208,35 @@ export default class UI {
 
   static addTaskHeaderView(project) {
     const addTaskCard = document.createElement('div');
-    addTaskCard.classList.add('container');
+    addTaskCard.classList.add('add-task-header-view-container');
 
     const taskNameInput = document.createElement('input');
     taskNameInput.setAttribute('type', 'text');
     taskNameInput.setAttribute('name', 'TaskName');
     taskNameInput.setAttribute('placeholder', 'New Task');
+
+    const taskDesc = document.createElement('textarea');
+    taskDesc.setAttribute('type', 'text');
+    taskDesc.setAttribute('name', 'TaskDescription');
+    taskDesc.setAttribute('placeholder', 'Description');
+    taskDesc.setAttribute('rows', 5);
+
+    const taskDueInput = document.createElement('input');
+    taskDueInput.setAttribute('type', 'date');
+    taskDueInput.id = 'task-due-header';
+    let taskDueDate = taskDueInput.value;
+    taskDueInput.addEventListener('change', () => {
+      taskDueDate = new Date(taskDueInput.value);
+    });
+
+    const taskDueLabel = document.createElement('label');
+    taskDueLabel.setAttribute('for', taskDueInput.id);
+    taskDueLabel.classList.add('date-label');
+    taskDueLabel.innerHTML = 'Due Date';
+    taskDueLabel.appendChild(taskDueInput);
+
+    const btnWrapper = document.createElement('div');
+    btnWrapper.classList.add('btn-task-control-container');
 
     const btnAddTask = document.createElement('button');
     btnAddTask.classList.add('btn-task-control');
@@ -224,13 +247,42 @@ export default class UI {
     btnCancel.textContent = 'cancel';
 
     addTaskCard.appendChild(taskNameInput);
-    addTaskCard.appendChild(btnAddTask);
-    addTaskCard.appendChild(btnCancel);
+    addTaskCard.appendChild(taskDesc);
+    addTaskCard.appendChild(taskDueLabel);
+    addTaskCard.appendChild(btnWrapper);
+    btnWrapper.appendChild(btnAddTask);
+    btnWrapper.appendChild(btnCancel);
 
     addTaskCard.style.display = 'none';
 
     btnAddTask.addEventListener('click', () => {
-      UI.addNewTask(project, taskNameInput.value);
+      let exists = false;
+
+      if (!taskNameInput.value) {
+        alert('Task name is a required field');
+        return;
+      }
+
+      if (!taskDueDate) {
+        alert('Due Date is a required field');
+        return;
+      }
+
+      if (
+        Storage.getTodoList().getProject(project).getTask(taskNameInput.value)
+      ) {
+        alert('This task already exists');
+        exists = true;
+      }
+
+      if (taskNameInput.value && !exists && taskDueDate) {
+        UI.addNewTask(
+          project,
+          taskNameInput.value,
+          taskDesc.value,
+          taskDueDate,
+        );
+      }
     });
     btnCancel.addEventListener('click', () => {
       UI.hideAddTaskHeaderView(addTaskCard, taskNameInput);
@@ -278,15 +330,19 @@ export default class UI {
 
       const taskDesc = document.createElement('p');
       taskDesc.classList.add('task-desc');
-      taskDesc.textContent = task.description;
+      if (task.description) {
+        taskDesc.textContent = task.description;
+      }
+      if (!task.description) {
+        taskDesc.textContent = 'No description';
+      }
 
       const taskDue = document.createElement('p');
       taskDue.classList.add('task-due');
-      // taskDue.textContent = `Due: ${format(
-      //   new Date(task.dueDate),
-      //   'dd/MM/yyyy',
-      // )}`;
-      taskDue.textContent = `Due: ${task.dueDate}`;
+      taskDue.textContent = `Due: ${format(
+        new Date(task.dueDate),
+        'dd/MM/yyyy',
+      )}`;
 
       const btnDelete = document.createElement('button');
       btnDelete.classList.add('btn-task-control');
@@ -524,17 +580,28 @@ export default class UI {
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     formSubmit.addEventListener('click', () => {
+      let exists = false;
+
       if (!taskName) {
         alert('Task Name is a required field');
+        return;
       }
       if (!taskDueDate) {
         alert('Due Date is a required field');
+        return;
       }
       if (!taskProj) {
         alert('Project is a required field');
+        return;
+      }
+      if (
+        Storage.getTodoList().getProject(taskProj.value).getTask(taskName.value)
+      ) {
+        alert('This task already exists');
+        exists = true;
       }
 
-      if (taskName.value && taskDueDate && taskProj.value) {
+      if (taskName.value && taskDueDate && taskProj.value && !exists) {
         UI.addNewTask(
           taskProj.value,
           taskName.value,

@@ -92,6 +92,10 @@ body {
   display: flex;
 }
 
+.project-controls-container {
+  margin-left: 1.5rem;
+}
+
 .icon-expand-controls,
 .icon-expand-tasks {
   height: 1.25rem;
@@ -200,6 +204,30 @@ h4 {
   margin: 0.75rem 0 0 0;
 }
 
+.add-task-header-view-container {
+  width: 60%;
+  min-width: 300px;
+  margin-left: 0.625rem;
+  padding-left: 1.5rem;
+}
+
+.add-task-header-view-container > label {
+  align-content: middle;
+  padding: 0;
+  align-items: center;
+}
+
+.add-task-header-view-container > label,
+.add-task-header-view-container > textarea,
+.add-task-header-view-container > input {
+  margin: 0.5rem 0 0 0;
+  justify-content: flex-start;
+}
+
+.btn-task-control-container {
+  margin-top: 0.5rem;
+}
+
 p.task-item {
   margin: 0 0 0 0.5rem;
 }
@@ -239,6 +267,7 @@ p.task-item {
 
 .btn-dismiss-submit {
   display: inline-flex;
+  cursor: default;
   width: 50%;
   justify-items: center;
   align-items: center;
@@ -252,7 +281,6 @@ p.task-item {
   color: transparent;
   -webkit-text-fill-color: transparent;
   background-color: black;
-
   background-clip: text;
   -webkit-background-clip: text;
 }

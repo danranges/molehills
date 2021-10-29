@@ -61,7 +61,7 @@ export default class Storage {
   static addTask(project, taskName, taskDesc, taskDue) {
     const todoList = Storage.getTodoList();
     todoList.getProject(project).addTask(taskName, taskDesc, taskDue);
-    console.table(todoList.getProjects());
+    // console.table(todoList.getProjects());
     Storage.setTodoList(todoList);
   }
 

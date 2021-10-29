@@ -29,7 +29,13 @@ export default class Project {
   }
 
   getTask(task) {
-    return this.tasks.find(({ name }) => name === task.name);
+    if (typeof task === 'object') {
+      return this.tasks.find(({ name }) => name === task.name);
+    }
+
+    if (typeof task === 'string') {
+      return this.tasks.find(({ name }) => name === task);
+    }
   }
 
   addTask(taskName, taskDesc, taskDue) {
