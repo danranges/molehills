@@ -1,6 +1,7 @@
 import Logo from '../Assets/mole.svg';
 import ExpandOptions from '../Assets/option-dots.png';
 import ExpandTasks from '../Assets/expand.png';
+import ExpandTask from '../Assets/expand-light.png';
 import Storage from './storage';
 import TodoList from './todolist';
 import Project from './project';
@@ -158,7 +159,7 @@ export default class UI {
     btnDeleteProject.addEventListener('click', () => UI.deleteProject(project));
 
     iconExpandControls.addEventListener('click', () =>
-      UI.showProjectControls(projectControls),
+      UI.showProjectControls(projectControls, iconExpandControls),
     );
 
     iconExpandTasks.addEventListener('click', () =>
@@ -173,9 +174,10 @@ export default class UI {
       UI.editProjectNameHeaderView(project, projectHeader),
     );
 
-    btnShowAddTask.addEventListener('click', () =>
+    btnShowAddTask.addEventListener('click', () => {
       UI.showAddTaskHeaderView(addTaskCard),
-    );
+        UI.showProjectControls(projectControls, iconExpandControls);
+    });
 
     if (!project.expanded) {
       tasksContainer.classList.add('hidden');
@@ -189,8 +191,9 @@ export default class UI {
     iconExpandTasks.classList.toggle('expanded');
   }
 
-  static showProjectControls(projectControls) {
+  static showProjectControls(projectControls, icon) {
     projectControls.classList.toggle('hidden');
+    icon.classList.toggle('expanded');
   }
 
   static showAddTaskHeaderView(addTaskCard) {
@@ -256,21 +259,37 @@ export default class UI {
       const taskItem = document.createElement('div');
       taskItem.classList.add('task-container');
 
+      const taskHeader = document.createElement('div');
+      taskHeader.classList.add('task-header');
+
       const taskName = document.createElement('p');
       taskName.classList.add('task-item');
       if (task.status) taskName.classList.add('done');
       taskName.textContent = task.name;
 
+      const iconExpandTask = new Image();
+      iconExpandTask.src = ExpandTask;
+      iconExpandTask.classList.add('icon-expand-task');
+
+      const taskDetails = document.createElement('div');
+
       const btnDelete = document.createElement('button');
       btnDelete.classList.add('btn-task-control');
       btnDelete.textContent = '×';
 
-      taskItem.appendChild(taskName);
-      taskItem.appendChild(btnDelete);
+      taskItem.appendChild(taskHeader);
+      taskHeader.appendChild(iconExpandTask);
+      taskHeader.appendChild(taskName);
+      // taskItem.appendChild(btnDelete);
 
-      taskItem.addEventListener('dblclick', () => {
+      iconExpandTask.addEventListener('dblclick', () => {
         UI.markTaskDone(project, task, taskName);
       });
+
+      taskItem.addEventListener('click', () =>
+        UI.showTaskDetails(taskDetails, iconExpandTask),
+      );
+
       btnDelete.addEventListener('click', () => {
         UI.deleteTask(project, task);
       });
@@ -279,6 +298,10 @@ export default class UI {
     });
 
     return tasksContainer;
+  }
+
+  static showTaskDetails(taskDetails, icon) {
+    icon.classList.toggle('expanded');
   }
 
   static markTaskDone(project, task, taskDOM) {
