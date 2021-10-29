@@ -24,5 +24,8 @@
     "webpack": "^5.52.1",
     "webpack-cascade-optimizer-plugin": "^1.0.5",
     "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.25.0"
   }
 }

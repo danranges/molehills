@@ -6,6 +6,7 @@ import Storage from './storage';
 import TodoList from './todolist';
 import Project from './project';
 import Task from './task';
+import { format } from 'date-fns';
 
 export default class UI {
   static render() {
@@ -272,6 +273,20 @@ export default class UI {
       iconExpandTask.classList.add('icon-expand-task');
 
       const taskDetails = document.createElement('div');
+      taskDetails.classList.add('task-details');
+      taskDetails.classList.add('hidden');
+
+      const taskDesc = document.createElement('p');
+      taskDesc.classList.add('task-desc');
+      taskDesc.textContent = task.description;
+
+      const taskDue = document.createElement('p');
+      taskDue.classList.add('task-due');
+      // taskDue.textContent = `Due: ${format(
+      //   new Date(task.dueDate),
+      //   'dd/MM/yyyy',
+      // )}`;
+      taskDue.textContent = `Due: ${task.dueDate}`;
 
       const btnDelete = document.createElement('button');
       btnDelete.classList.add('btn-task-control');
@@ -280,7 +295,10 @@ export default class UI {
       taskItem.appendChild(taskHeader);
       taskHeader.appendChild(iconExpandTask);
       taskHeader.appendChild(taskName);
-      // taskItem.appendChild(btnDelete);
+      taskItem.appendChild(taskDetails);
+      taskDetails.appendChild(taskDesc);
+      taskDetails.appendChild(taskDue);
+      taskDetails.appendChild(btnDelete);
 
       iconExpandTask.addEventListener('dblclick', () => {
         UI.markTaskDone(project, task, taskName);
@@ -301,6 +319,7 @@ export default class UI {
   }
 
   static showTaskDetails(taskDetails, icon) {
+    taskDetails.classList.toggle('hidden');
     icon.classList.toggle('expanded');
   }
 
@@ -444,11 +463,8 @@ export default class UI {
   }
 
   static addNewTask(project, taskName, taskDesc, taskDue) {
-    if (taskName) {
-      Storage.addTask(project, taskName, taskDesc, taskDue);
-      console.log(taskDue);
-      UI.renderProjects();
-    }
+    Storage.addTask(project, taskName, taskDesc, taskDue);
+    UI.renderProjects();
   }
 
   static addTaskCard() {
@@ -493,7 +509,7 @@ export default class UI {
     btnDismiss.classList.add('btn-dismiss-submit');
     btnDismiss.textContent = 'cancel';
 
-    const formSubmit = document.createElement('button');
+    const formSubmit = document.createElement('div');
     formSubmit.classList.add('btn-dismiss-submit');
     formSubmit.textContent = 'create';
 
@@ -508,12 +524,24 @@ export default class UI {
 
     btnDismiss.addEventListener('click', () => UI.removeAddTypeButtons());
     formSubmit.addEventListener('click', () => {
-      UI.addNewTask(
-        taskProj.value,
-        taskName.value,
-        taskDesc.value,
-        taskDueDate,
-      );
+      if (!taskName) {
+        alert('Task Name is a required field');
+      }
+      if (!taskDueDate) {
+        alert('Due Date is a required field');
+      }
+      if (!taskProj) {
+        alert('Project is a required field');
+      }
+
+      if (taskName.value && taskDueDate && taskProj.value) {
+        UI.addNewTask(
+          taskProj.value,
+          taskName.value,
+          taskDesc.value,
+          taskDueDate,
+        );
+      }
     });
   }
 
@@ -523,6 +551,11 @@ export default class UI {
 
     const defaultProject = document.createElement('option');
     defaultProject.textContent = 'Select project';
+    defaultProject.setAttribute('value', '');
+    defaultProject.setAttribute('hidden', true);
+    defaultProject.setAttribute('selected', true);
+    defaultProject.setAttribute('disabled', true);
+
     projectDropdown.appendChild(defaultProject);
 
     const projectNames = Storage.getTodoList()
