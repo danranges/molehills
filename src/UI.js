@@ -346,7 +346,11 @@ export default class UI {
 
       const btnDelete = document.createElement('button');
       btnDelete.classList.add('btn-task-control');
-      btnDelete.textContent = '×';
+      btnDelete.textContent = 'delete';
+
+      const btnMarkDone = document.createElement('button');
+      btnMarkDone.classList.add('btn-task-control');
+      btnMarkDone.textContent = 'complete';
 
       taskItem.appendChild(taskHeader);
       taskHeader.appendChild(iconExpandTask);
@@ -354,9 +358,10 @@ export default class UI {
       taskItem.appendChild(taskDetails);
       taskDetails.appendChild(taskDesc);
       taskDetails.appendChild(taskDue);
+      taskDetails.appendChild(btnMarkDone);
       taskDetails.appendChild(btnDelete);
 
-      iconExpandTask.addEventListener('dblclick', () => {
+      btnMarkDone.addEventListener('click', () => {
         UI.markTaskDone(project, task, taskName);
       });
 
