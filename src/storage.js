@@ -76,4 +76,13 @@ export default class Storage {
     todoList.getProject(project).getTask(task).setStatus();
     Storage.setTodoList(todoList);
   }
+
+  static editTask(project, task, newName, newDesc, newDue) {
+    const todoList = Storage.getTodoList();
+    todoList
+      .getProject(project)
+      .getTask(task)
+      .editTask(newName, newDesc, newDue);
+    Storage.setTodoList(todoList);
+  }
 }

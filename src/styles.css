@@ -104,6 +104,11 @@ body {
   transition: transform 100ms ease-in-out 0ms;
 }
 
+.icon-editing-task {
+  height: 1rem;
+  width: 1rem;
+}
+
 .icon-expand-task {
   height: 0.75rem;
   width: 0.75rem;

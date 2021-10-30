@@ -13,4 +13,10 @@ export default class Task {
   setStatus() {
     this.status = !this.status;
   }
+
+  editTask(newName, newDesc, newDueDate) {
+    this.name = newName;
+    this.description = newDesc;
+    this.dueDate = newDueDate;
+  }
 }

@@ -2,6 +2,7 @@ import Logo from '../Assets/mole.svg';
 import ExpandOptions from '../Assets/option-dots.png';
 import ExpandTasks from '../Assets/expand.png';
 import ExpandTask from '../Assets/expand-light.png';
+import EditTask from '../Assets/edit.png';
 import Storage from './storage';
 import TodoList from './todolist';
 import Project from './project';
@@ -330,12 +331,9 @@ export default class UI {
 
       const taskDesc = document.createElement('p');
       taskDesc.classList.add('task-desc');
-      if (task.description) {
-        taskDesc.textContent = task.description;
-      }
-      if (!task.description) {
-        taskDesc.textContent = 'No description';
-      }
+      taskDesc.textContent = task.description
+        ? task.description
+        : 'No description';
 
       const taskDue = document.createElement('p');
       taskDue.classList.add('task-due');
@@ -350,7 +348,11 @@ export default class UI {
 
       const btnMarkDone = document.createElement('button');
       btnMarkDone.classList.add('btn-task-control');
-      btnMarkDone.textContent = 'complete';
+      btnMarkDone.textContent = !task.status ? 'complete' : 'reopen';
+
+      const btnEdit = document.createElement('button');
+      btnEdit.classList.add('btn-task-control');
+      btnEdit.textContent = 'edit';
 
       taskItem.appendChild(taskHeader);
       taskHeader.appendChild(iconExpandTask);
@@ -359,6 +361,7 @@ export default class UI {
       taskDetails.appendChild(taskDesc);
       taskDetails.appendChild(taskDue);
       taskDetails.appendChild(btnMarkDone);
+      taskDetails.appendChild(btnEdit);
       taskDetails.appendChild(btnDelete);
 
       btnMarkDone.addEventListener('click', () => {
@@ -372,6 +375,10 @@ export default class UI {
       btnDelete.addEventListener('click', () => {
         UI.deleteTask(project, task);
       });
+
+      btnEdit.addEventListener('click', () =>
+        UI.initEditTask(project, task, taskItem),
+      );
 
       tasksContainer.appendChild(taskItem);
     });
@@ -392,6 +399,76 @@ export default class UI {
   static deleteTask(project, task) {
     Storage.deleteTask(project, task);
     UI.renderProjects();
+  }
+
+  static editTask(project, task, newName, newDesc, newDue) {
+    Storage.editTask(project, task, newName, newDesc, newDue);
+    UI.renderProjects();
+  }
+
+  static initEditTask(project, task, taskDOM) {
+    taskDOM.innerHTML = '';
+
+    const editTaskHeader = document.createElement('div');
+    editTaskHeader.classList.add('task-header');
+
+    const editTaskDetails = document.createElement('div');
+    editTaskDetails.classList.add('task-details');
+
+    const iconEditing = new Image();
+    iconEditing.src = EditTask;
+    iconEditing.classList.add('icon-editing-task');
+
+    const taskName = document.createElement('input');
+    taskName.setAttribute('type', 'text');
+    taskName.setAttribute('name', 'TaskName');
+    taskName.setAttribute('placeholder', 'Task');
+    taskName.setAttribute('value', task.name);
+
+    const taskDesc = document.createElement('textarea');
+    taskDesc.setAttribute('type', 'text');
+    taskDesc.setAttribute('name', 'TaskDescription');
+    taskDesc.setAttribute('placeholder', 'Description');
+    taskDesc.value = task.description;
+    taskDesc.setAttribute('rows', 5);
+
+    const taskDueInput = document.createElement('input');
+    taskDueInput.setAttribute('type', 'date');
+    taskDueInput.value = format(new Date(task.dueDate), 'yyyy-MM-dd');
+    taskDueInput.id = 'task-due';
+    let taskDueDate = taskDueInput.value;
+    taskDueInput.addEventListener('change', () => {
+      taskDueDate = new Date(taskDueInput.value);
+    });
+
+    const taskDueLabel = document.createElement('label');
+    taskDueLabel.setAttribute('for', taskDueInput.id);
+    taskDueLabel.classList.add('date-label');
+    taskDueLabel.innerHTML = 'Due Date';
+    taskDueLabel.appendChild(taskDueInput);
+
+    const btnCancel = document.createElement('button');
+    btnCancel.classList.add('btn-task-control');
+    btnCancel.textContent = 'cancel';
+
+    const btnSubmit = document.createElement('button');
+    btnSubmit.classList.add('btn-task-control');
+    btnSubmit.textContent = 'update';
+
+    editTaskHeader.appendChild(iconEditing);
+    editTaskHeader.appendChild(taskName);
+    editTaskDetails.appendChild(taskDesc);
+    editTaskDetails.appendChild(taskDueLabel);
+    editTaskDetails.appendChild(btnCancel);
+    editTaskDetails.appendChild(btnSubmit);
+
+    taskDOM.appendChild(editTaskHeader);
+    taskDOM.appendChild(editTaskDetails);
+
+    btnCancel.addEventListener('click', () => UI.renderProjects());
+    btnSubmit.addEventListener('click', () =>
+      UI.editTask(project, task, taskName.value, taskDesc.value, taskDueDate),
+    );
   }
 
   static editProjectNameHeaderView(project, projectHeader) {
