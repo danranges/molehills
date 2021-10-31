@@ -209,10 +209,18 @@ h4 {
   margin: 0.75rem 0 0 0;
 }
 
+.task-header > input,
+.task-details > textarea {
+  width: 100%;
+}
+.task-details > textarea {
+  margin: 0.3125rem;
+  margin-right: 0.75rem;
+}
+
 .add-task-header-view-container {
   width: 60%;
   min-width: 300px;
-  margin-left: 0.625rem;
   padding-left: 1.5rem;
 }
 
@@ -240,6 +248,7 @@ p.task-item {
 .task-details {
   font-size: 0.75rem;
   margin: 0.25rem 0 0 0;
+  padding-right: 0.75rem;
   padding-left: 2.125rem;
 }
 

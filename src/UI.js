@@ -420,6 +420,7 @@ export default class UI {
     iconEditing.classList.add('icon-editing-task');
 
     const taskName = document.createElement('input');
+    taskName.classList.add('task-name-header-edit');
     taskName.setAttribute('type', 'text');
     taskName.setAttribute('name', 'TaskName');
     taskName.setAttribute('placeholder', 'Task');
