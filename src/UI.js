@@ -88,12 +88,66 @@ export default class UI {
   }
 
   static renderHome() {
-    workspace.innerHTML = 'HOME';
+    const workspace = document.getElementById('workspace');
+    workspace.innerHTML = '';
+
+    workspace.appendChild(UI.initHomeHeader('Overdue'));
+    workspace.appendChild(UI.initHomeHeader('Today'));
+    workspace.appendChild(UI.initHomeHeader('This Week'));
+  }
+
+  static initHomeHeader(homeItem) {
+    const projectContainer = document.createElement('div');
+    projectContainer.classList.add('container');
+
+    const projectHeader = document.createElement('div');
+    projectHeader.classList.add('project-header');
+
+    const projectName = document.createElement('p');
+    projectName.classList.add('project-name');
+    projectName.textContent = homeItem;
+
+    const projectUIControls = document.createElement('div');
+    projectUIControls.classList.add('flex');
+
+    const iconExpandTasks = new Image();
+    iconExpandTasks.src = ExpandTasks;
+    iconExpandTasks.classList.add('icon-expand-tasks');
+    projectUIControls.appendChild(iconExpandTasks);
+
+    const tasksContainer = UI.renderHomeTasks(homeItem);
+
+    projectContainer.appendChild(projectHeader);
+    projectContainer.appendChild(tasksContainer);
+    projectHeader.appendChild(projectName);
+    projectHeader.appendChild(projectUIControls);
+
+    iconExpandTasks.addEventListener('click', () =>
+      UI.showTasks(tasksContainer, iconExpandTasks),
+    );
+
+    projectName.addEventListener('click', () => {
+      UI.showTasks(tasksContainer, iconExpandTasks);
+    });
+
+    return projectContainer;
+  }
+
+  static renderHomeTasks(homeItem) {
+    const tasksContainer = document.createElement('div');
+
+    const todoList = Storage.getTodoList();
+
+    // todoList.getProjects;
+
+    return tasksContainer;
   }
 
   static renderProjects() {
-    const todoList = Storage.getTodoList();
+    const workspace = document.getElementById('workspace');
     workspace.innerHTML = '';
+
+    const todoList = Storage.getTodoList();
     todoList.getProjects().forEach((project) => UI.initProjectHeader(project));
   }
 
@@ -144,7 +198,7 @@ export default class UI {
 
     const addTaskCard = UI.addTaskHeaderView(project);
 
-    const tasksContainer = UI.renderTasks(project);
+    const tasksContainer = UI.renderProjectTasks(project);
 
     workspace.appendChild(projectContainer);
     projectContainer.appendChild(projectHeader);
@@ -165,11 +219,11 @@ export default class UI {
     );
 
     iconExpandTasks.addEventListener('click', () =>
-      UI.showTasks(tasksContainer, project, iconExpandTasks),
+      UI.showTasks(tasksContainer, iconExpandTasks, project),
     );
 
     projectName.addEventListener('click', () => {
-      UI.showTasks(tasksContainer, project, iconExpandTasks);
+      UI.showTasks(tasksContainer, iconExpandTasks, project);
     });
 
     btnEditProject.addEventListener('click', () =>
@@ -187,10 +241,13 @@ export default class UI {
     }
   }
 
-  static showTasks(tasksContainer, project, iconExpandTasks) {
+  static showTasks(tasksContainer, iconExpandTasks, project) {
     tasksContainer.classList.toggle('hidden');
-    Storage.setProjectView(project);
     iconExpandTasks.classList.toggle('expanded');
+
+    if (project) {
+      Storage.setProjectView(project);
+    }
   }
 
   static showProjectControls(projectControls, icon) {
@@ -306,7 +363,7 @@ export default class UI {
     workspace.innerHTML = '';
   }
 
-  static renderTasks(project) {
+  static renderProjectTasks(project) {
     const tasksContainer = document.createElement('div');
 
     project.getTasks().forEach((task) => {
