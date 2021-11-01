@@ -310,80 +310,86 @@ export default class UI {
     const tasksContainer = document.createElement('div');
 
     project.getTasks().forEach((task) => {
-      const taskItem = document.createElement('div');
-      taskItem.classList.add('task-container');
-
-      const taskHeader = document.createElement('div');
-      taskHeader.classList.add('task-header');
-
-      const taskName = document.createElement('p');
-      taskName.classList.add('task-item');
-      if (task.status) taskName.classList.add('done');
-      taskName.textContent = task.name;
-
-      const iconExpandTask = new Image();
-      iconExpandTask.src = ExpandTask;
-      iconExpandTask.classList.add('icon-expand-task');
-
-      const taskDetails = document.createElement('div');
-      taskDetails.classList.add('task-details');
-      taskDetails.classList.add('hidden');
-
-      const taskDesc = document.createElement('p');
-      taskDesc.classList.add('task-desc');
-      taskDesc.textContent = task.description
-        ? task.description
-        : 'No description';
-
-      const taskDue = document.createElement('p');
-      taskDue.classList.add('task-due');
-      taskDue.textContent = `Due: ${format(
-        new Date(task.dueDate),
-        'dd/MM/yyyy',
-      )}`;
-
-      const btnDelete = document.createElement('button');
-      btnDelete.classList.add('btn-task-control');
-      btnDelete.textContent = 'delete';
-
-      const btnMarkDone = document.createElement('button');
-      btnMarkDone.classList.add('btn-task-control');
-      btnMarkDone.textContent = !task.status ? 'complete' : 'reopen';
-
-      const btnEdit = document.createElement('button');
-      btnEdit.classList.add('btn-task-control');
-      btnEdit.textContent = 'edit';
-
-      taskItem.appendChild(taskHeader);
-      taskHeader.appendChild(iconExpandTask);
-      taskHeader.appendChild(taskName);
-      taskItem.appendChild(taskDetails);
-      taskDetails.appendChild(taskDesc);
-      taskDetails.appendChild(taskDue);
-      taskDetails.appendChild(btnMarkDone);
-      taskDetails.appendChild(btnEdit);
-      taskDetails.appendChild(btnDelete);
-
-      btnMarkDone.addEventListener('click', () => {
-        UI.markTaskDone(project, task, taskName);
-      });
-
-      taskItem.addEventListener('click', () =>
-        UI.showTaskDetails(taskDetails, iconExpandTask),
-      );
-
-      btnDelete.addEventListener('click', () => {
-        UI.deleteTask(project, task);
-      });
-
-      btnEdit.addEventListener('click', () =>
-        UI.initEditTask(project, task, taskItem),
-      );
+      const taskItem = UI.renderTask(project, task);
 
       tasksContainer.appendChild(taskItem);
     });
 
     return tasksContainer;
+  }
+
+  static renderTask(project, task) {
+    const taskItem = document.createElement('div');
+    taskItem.classList.add('task-container');
+
+    const taskHeader = document.createElement('div');
+    taskHeader.classList.add('task-header');
+
+    const taskName = document.createElement('p');
+    taskName.classList.add('task-item');
+    if (task.status) taskName.classList.add('done');
+    taskName.textContent = task.name;
+
+    const iconExpandTask = new Image();
+    iconExpandTask.src = ExpandTask;
+    iconExpandTask.classList.add('icon-expand-task');
+
+    const taskDetails = document.createElement('div');
+    taskDetails.classList.add('task-details');
+    taskDetails.classList.add('hidden');
+
+    const taskDesc = document.createElement('p');
+    taskDesc.classList.add('task-desc');
+    taskDesc.textContent = task.description
+      ? task.description
+      : 'No description';
+
+    const taskDue = document.createElement('p');
+    taskDue.classList.add('task-due');
+    taskDue.textContent = `Due: ${format(
+      new Date(task.dueDate),
+      'dd/MM/yyyy',
+    )}`;
+
+    const btnDelete = document.createElement('button');
+    btnDelete.classList.add('btn-task-control');
+    btnDelete.textContent = 'delete';
+
+    const btnMarkDone = document.createElement('button');
+    btnMarkDone.classList.add('btn-task-control');
+    btnMarkDone.textContent = !task.status ? 'complete' : 'reopen';
+
+    const btnEdit = document.createElement('button');
+    btnEdit.classList.add('btn-task-control');
+    btnEdit.textContent = 'edit';
+
+    taskItem.appendChild(taskHeader);
+    taskHeader.appendChild(iconExpandTask);
+    taskHeader.appendChild(taskName);
+    taskItem.appendChild(taskDetails);
+    taskDetails.appendChild(taskDesc);
+    taskDetails.appendChild(taskDue);
+    taskDetails.appendChild(btnMarkDone);
+    taskDetails.appendChild(btnEdit);
+    taskDetails.appendChild(btnDelete);
+
+    btnMarkDone.addEventListener('click', () => {
+      UI.markTaskDone(project, task, taskName);
+    });
+
+    taskItem.addEventListener('click', () =>
+      UI.showTaskDetails(taskDetails, iconExpandTask),
+    );
+
+    btnDelete.addEventListener('click', () => {
+      UI.deleteTask(project, task);
+    });
+
+    btnEdit.addEventListener('click', () =>
+      UI.initEditTask(project, task, taskItem),
+    );
+
+    return taskItem;
   }
 
   static showTaskDetails(taskDetails, icon) {
