@@ -7,7 +7,7 @@ import Storage from './storage';
 import TodoList from './todolist';
 import Project from './project';
 import Task from './task';
-import { format } from 'date-fns';
+import { format, isBefore, addDays, isEqual, isAfter } from 'date-fns';
 
 export default class UI {
   static render() {
@@ -138,7 +138,30 @@ export default class UI {
 
     const todoList = Storage.getTodoList();
 
-    // todoList.getProjects;
+    todoList.getProjects().forEach((project) =>
+      project.getTasks().forEach((task) => {
+        let due = new Date(new Date(task.dueDate).toDateString());
+        let today = new Date(new Date().toDateString());
+        let oneWeek = addDays(today, 7);
+
+        if (homeItem === 'Overdue' && isBefore(due, today) && !task.status) {
+          tasksContainer.appendChild(UI.renderTask(project, task, 'home'));
+        }
+
+        if (homeItem === 'Today' && isEqual(due, today) && !task.status) {
+          tasksContainer.appendChild(UI.renderTask(project, task, 'home'));
+        }
+
+        if (
+          homeItem === 'This Week' &&
+          isAfter(due, today) &&
+          isBefore(due, oneWeek) &&
+          !task.status
+        ) {
+          tasksContainer.appendChild(UI.renderTask(project, task, 'home'));
+        }
+      }),
+    );
 
     return tasksContainer;
   }
@@ -375,7 +398,7 @@ export default class UI {
     return tasksContainer;
   }
 
-  static renderTask(project, task) {
+  static renderTask(project, task, activeView) {
     const taskItem = document.createElement('div');
     taskItem.classList.add('task-container');
 
@@ -439,11 +462,11 @@ export default class UI {
     );
 
     btnDelete.addEventListener('click', () => {
-      UI.deleteTask(project, task);
+      UI.deleteTask(project, task, activeView);
     });
 
     btnEdit.addEventListener('click', () =>
-      UI.initEditTask(project, task, taskItem),
+      UI.initEditTask(project, task, taskItem, activeView),
     );
 
     return taskItem;
@@ -461,15 +484,15 @@ export default class UI {
 
   static deleteTask(project, task) {
     Storage.deleteTask(project, task);
-    UI.renderProjects();
+    activeView === 'home' ? UI.renderHome() : UI.renderProjects();
   }
 
-  static editTask(project, task, newName, newDesc, newDue) {
+  static editTask(project, task, newName, newDesc, newDue, activeView) {
     Storage.editTask(project, task, newName, newDesc, newDue);
-    UI.renderProjects();
+    activeView === 'home' ? UI.renderHome() : UI.renderProjects();
   }
 
-  static initEditTask(project, task, taskDOM) {
+  static initEditTask(project, task, taskDOM, activeView) {
     taskDOM.innerHTML = '';
 
     const editTaskHeader = document.createElement('div');
@@ -529,9 +552,18 @@ export default class UI {
     taskDOM.appendChild(editTaskHeader);
     taskDOM.appendChild(editTaskDetails);
 
-    btnCancel.addEventListener('click', () => UI.renderProjects());
+    btnCancel.addEventListener('click', () =>
+      activeView === 'home' ? UI.renderHome() : UI.renderProjects(),
+    );
     btnSubmit.addEventListener('click', () =>
-      UI.editTask(project, task, taskName.value, taskDesc.value, taskDueDate),
+      UI.editTask(
+        project,
+        task,
+        taskName.value,
+        taskDesc.value,
+        taskDueDate,
+        activeView,
+      ),
     );
   }
 
