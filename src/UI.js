@@ -72,7 +72,7 @@ export default class UI {
       footer.classList.add('footer');
       footer.id = 'footer';
       footer.innerHTML = `<p class="footer">Made by</p> 
-                          <a class="footer" href=https://github.com/danranges> <img id="gh-logo" src="../Assets/GitHub-Mark-64px.png" alt="github logo"/></a>
+                          <a class="footer" href=https://github.com/danranges> <img id="gh-logo" src="/../Assets/GitHub-Mark-64px.png" alt="github logo"/></a>
                           <a class="footer" href=https://github.com/danranges>Dan Ranges</a>`;
 
       return footer;
