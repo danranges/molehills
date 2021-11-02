@@ -38,4 +38,4 @@ The live demo can be found [here](#)
 
 About halfway through, I got the projects page workable to the point where I could use it to track my own open items for this project. Very meta, but it felt pretty good to have a usable tool that I made from scratch.
 
-I also learned that date comparison, while made easier by something like `date-fns`, are a bit of a hassle.
+I also learned that date comparison, while made easier by something like `date-fns`, is a bit of a hassle.
