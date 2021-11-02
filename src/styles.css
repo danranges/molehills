@@ -334,39 +334,38 @@ button {
 
 button:hover,
 button:active {
-  mask-size: 2.25em;
-  -webkit-mask-size: 2.25em;
+  mask-size: 2.25rem;
+  -webkit-mask-size: 2.25rem;
 }
 
 .btn-home,
 .btn-add,
 .btn-menu {
   width: 30vw;
-  height: 2.75em;
+  height: 2.75rem;
   background-color: black;
-  mask-size: 2em;
+  mask-size: 2rem;
   mask-repeat: no-repeat;
   mask-position: center;
   mask-origin: content-box;
-  -webkit-mask-size: 2em;
+  -webkit-mask-size: 2rem;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  -webkit-mask-origin: content-box;
-}
-
-.btn-home {
-  mask-image: url(../Assets/home.svg);
-  -webkit-mask-image: url(../Assets/home.svg);
-}
-
-.btn-add {
-  mask-image: url(../Assets/mono-svn-add.svg);
-  -webkit-mask-image: url(../Assets/mono-svn-add.svg);
 }
 
 .btn-menu {
   mask-image: url(../Assets/options.svg);
   -webkit-mask-image: url(../Assets/options.svg);
+}
+
+.btn-home {
+  -webkit-mask-image: url(../Assets/home.svg);
+  mask-image: url(../Assets/home.svg);
+}
+
+.btn-add {
+  -webkit-mask-image: url(../Assets/mono-svn-add.svg);
+  mask-image: url(../Assets/mono-svn-add.svg);
 }
 
 .btn-project-control,
