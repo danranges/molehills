@@ -1,4 +1,5 @@
 import Logo from '../Assets/mole.svg';
+import GHLogo from '../Assets/GitHub-Mark-64px.png';
 import ExpandOptions from '../Assets/option-dots.png';
 import ExpandTasks from '../Assets/expand.png';
 import ExpandTask from '../Assets/expand-light.png';
@@ -71,9 +72,29 @@ export default class UI {
       const footer = document.createElement('div');
       footer.classList.add('footer');
       footer.id = 'footer';
-      footer.innerHTML = `<p class="footer">Made by</p> 
-                          <a class="footer" href=https://github.com/danranges> <img id="gh-logo" src="/../Assets/GitHub-Mark-64px.png" alt="github logo"/></a>
-                          <a class="footer" href=https://github.com/danranges>Dan Ranges</a>`;
+
+      const footerLeft = document.createElement('p');
+      footerLeft.classList.add('footer');
+      footerLeft.textContent = 'Made by';
+
+      const footerLogo = new Image();
+      footerLogo.id = 'gh-logo';
+      footerLogo.src = GHLogo;
+      footerLogo.classList.add('footer');
+
+      const footerMiddle = document.createElement('a');
+      footerMiddle.classList.add('footer');
+      footerMiddle.href = 'https://github.com/danranges';
+      footerMiddle.appendChild(footerLogo);
+
+      const footerRight = document.createElement('a');
+      footerRight.href = 'https://github.com/danranges';
+      footerRight.classList.add('footer');
+      footerRight.textContent = 'Dan Ranges';
+
+      footer.appendChild(footerLeft);
+      footer.appendChild(footerMiddle);
+      footer.appendChild(footerRight);
 
       return footer;
     }

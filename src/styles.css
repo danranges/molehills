@@ -420,14 +420,14 @@ p.footer,
 a.footer,
 a.footer:visited {
   color: black;
-  align-self: center;
   text-decoration: none;
   font-size: 0.7rem;
 }
 
 #gh-logo {
-  width: 24px;
-  padding: 0px 5px;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0px 5px;
 }
 
 @media screen and (min-width: 600px) {
@@ -467,6 +467,6 @@ a.footer:visited {
     display: flex;
     width: 100%;
     justify-content: center;
-    align-content: center;
+    align-items: center;
   }
 }
