@@ -99,13 +99,22 @@ export default class UI {
       return footer;
     }
 
+    function setFavicons(favImg) {
+      let headTitle = document.querySelector('head');
+      let setFavicon = document.createElement('link');
+      setFavicon.setAttribute('rel', 'shortcut icon');
+      setFavicon.setAttribute('href', favImg);
+      headTitle.appendChild(setFavicon);
+    }
+
     document.body.appendChild(createHeader());
     document.body.appendChild(createWorkspace());
     document.body.appendChild(createNav());
     document.body.appendChild(createFooter());
 
-    UI.renderHome();
+    setFavicons(Logo);
     Storage.initTodoList();
+    UI.renderHome();
   }
 
   static renderHome() {
