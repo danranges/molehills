@@ -295,11 +295,8 @@ p.task-item {
   padding: 1rem;
   margin: 1rem 1rem 0;
   font-size: 0.75rem;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  background-color: black;
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: black;
+  background-color: transparent;
   text-decoration: underline;
 }
 
