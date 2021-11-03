@@ -7,6 +7,7 @@ A Todo List App for The Odin Project
 - [General Info](#general-info)
 - [Technologies](#techonolgies)
 - [Project Takeaways](#project-takeaways)
+- [Other Notes](#other-notes)
 
 ## General Info
 
@@ -14,7 +15,7 @@ The "Todo List" project brief can be found on [The Odin Project's website](https
 
 The repo is hosted [here](https://github.com/danranges/molehills)
 
-The live demo can be found [here](#)
+The live demo can be found [here](https://danranges.github.io/molehills/)
 
 ## Technologies
 

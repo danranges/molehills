@@ -29,8 +29,8 @@ export default class TodoList {
     }
   }
 
-  addProject(project) {
-    this.projects.push(new Project(project));
+  addProject(project, expanded) {
+    this.projects.push(new Project(project, true));
   }
 
   deleteProject(project) {

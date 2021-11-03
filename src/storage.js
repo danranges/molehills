@@ -6,6 +6,13 @@ export default class Storage {
   static initTodoList() {
     if (!localStorage.getItem('todoList')) {
       localStorage.setItem('todoList', JSON.stringify(new TodoList()));
+      Storage.addProject('Default Project');
+      Storage.addTask(
+        'Default Project',
+        'Sample Task',
+        'This is a sample task description.',
+        new Date(),
+      );
     }
   }
 
@@ -34,9 +41,9 @@ export default class Storage {
     localStorage.setItem('todoList', JSON.stringify(todoList));
   }
 
-  static addProject(project) {
+  static addProject(project, expanded) {
     const todoList = Storage.getTodoList();
-    todoList.addProject(project);
+    todoList.addProject(project, true);
     Storage.setTodoList(todoList);
   }
 
