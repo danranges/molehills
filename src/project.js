@@ -21,13 +21,15 @@ export default class Project {
 
   setTasks(tasks) {
     tasks.sort((a, b) => {
-      let x = a.name.toLowerCase(),
-        y = b.name.toLowerCase();
-      return x == y ? 0 : x > y ? 1 : -1;
+      const x = a.name.toLowerCase();
+      const y = b.name.toLowerCase();
+      // eslint-disable-next-line no-nested-ternary
+      return x === y ? 0 : x > y ? 1 : -1;
     });
     this.tasks = tasks;
   }
 
+  // eslint-disable-next-line consistent-return
   getTask(task) {
     if (typeof task === 'object') {
       return this.tasks.find(({ name }) => name === task.name);

@@ -30,6 +30,7 @@ body {
 .header {
   background-color: #fff;
   position: sticky;
+  width: 100%;
   position: -webkit-sticky;
   top: 0px;
   padding: 1.75em 0 2em;

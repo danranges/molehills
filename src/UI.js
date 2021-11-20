@@ -99,7 +99,7 @@ export default class UI {
       return footer;
     }
 
-    function setFavicons(favImg) {
+    function setFavicon(favImg) {
       let headTitle = document.querySelector('head');
       let setFavicon = document.createElement('link');
       setFavicon.setAttribute('rel', 'shortcut icon');
@@ -112,7 +112,7 @@ export default class UI {
     document.body.appendChild(createNav());
     document.body.appendChild(createFooter());
 
-    setFavicons(Logo);
+    setFavicon(Logo);
     Storage.initTodoList();
     UI.renderHome();
   }
@@ -152,9 +152,9 @@ export default class UI {
     projectHeader.appendChild(projectName);
     projectHeader.appendChild(projectUIControls);
 
-    iconExpandTasks.addEventListener('click', () =>
-      UI.showTasks(tasksContainer, iconExpandTasks),
-    );
+    iconExpandTasks.addEventListener('click', () => {
+      UI.showTasks(tasksContainer, iconExpandTasks);
+    });
 
     projectName.addEventListener('click', () => {
       UI.showTasks(tasksContainer, iconExpandTasks);
